@@ -1,0 +1,434 @@
+<%- include('components/header', {title: __('common.navbar.home')}) %>
+<head>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+</head>
+  <div class="container mt-4">
+    <% if(userType == 'admin') { %>
+      <div class="welcome-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">Administrator Dashboard</h2>
+          <div>
+            <a href="/admin" class="btn btn-primary me-2">Go to Admin Panel</a>
+            <a href="/auth/logout" class="btn btn-outline-secondary"><%= __('btn.logOut') %></a>
+          </div>
+        </div>
+        <p class="text-muted"><%= __('dashboard.admin.welcomeMessage') %></p>
+      </div>
+    <% } else if(userType == 'government-official') { %>
+      <div class="welcome-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0"><%= __('dashboard.government.title') %></h2>
+          <a href="/auth/logout" class="btn btn-outline-secondary"><%= __('btn.logOut') %></a>
+        </div>
+        <p class="text-muted"><%= __('dashboard.government.welcomeMessage') %></p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= __('dashboard.government.anomaly') %></h5>
+                <p class="card-text"><%= __('dashboard.government.anomalyDesc') %></p>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col"><%= __('dashboard.government.anomalyTable.score') %></th>
+                      <th scope="col"><%= __('dashboard.government.anomalyTable.name') %></th>
+                      <th scope="col"><%= __('dashboard.government.anomalyTable.action') %></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (Array.isArray(anomalousFacilities)) { %>
+                      <% anomalousFacilities.forEach(function(facility) { %>
+                        <tr>
+                          <td>
+                            <span class="badge bg-<%= facility.scores[0] >= 3.5 ? 'success' : (facility.scores[0] >= 2 ? 'warning' : 'danger') %>">
+                              <%= facility.scores[0] %>
+                            </span>
+                          </td>
+                          <td><%= facility.name %></td>
+                          <td>
+                            <a href="/facilities/<%= facility.id %>" class="btn btn-sm btn-outline-primary"><%= __('btn.viewFacility') %></a>
+                          </td>
+                        </tr>
+                      <% }); %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="3">
+                          <p class="text-danger"><%= __('dashboard.government.anomalyTable.error') %></p>
+                        </td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+                <% if(Array.isArray(anomalousFacilities) && anomalousFacilities.length == 0) { %>
+                  <p class="text-muted text-center"><%= __('dashboard.government.anomalyTable.empty') %></p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% if(noJurisdiction) { %>
+            <div class="col-md-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><%= __('dashboard.government.noJurisdictionTitle') %></h5>
+                  <p class="card-text"><%= __('dashboard.government.noJurisdictionDesc') %></p>
+                </div>
+              </div>
+            </div>
+          <% } else { %>
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <% if (typeof jurisdictionType !== 'undefined' && typeof jurisdiction !== 'undefined') { %>
+                    <b><%= jurisdictionType %></b> <%= jurisdiction || 'N/A' %>
+                  <% } else { %>
+                    <b>N/A</b>
+                  <% } %>
+                </h5>
+                <h6><%= __('dashboard.government.scoreTrends') %></h6>
+                <% if (typeof jurisdictionType !== 'undefined' && typeof jurisdiction !== 'undefined') { %>
+                <div class="col-12 my-3">
+                  <%- include('components/overall-avg-jur-avg', {
+                    jurisdictionName: __('dashboard.government.jurisdictionAvg'),
+                    overallName: __('dashboard.government.overallAvg')
+                  }) %>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    <% } else if(userType == 'public-official') { %>
+      <div class="welcome-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0"><%= __('dashboard.public.title') %></h2>
+          <a href="/auth/logout" class="btn btn-outline-secondary"><%= __('btn.logOut') %></a>
+        </div>
+        <p class="text-muted"><%= __('dashboard.public.welcomeMessage') %></p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title"><%= __('dashboard.public.anomaly') %></h5>
+                <p class="card-text"><%= __('dashboard.public.anomalyDesc') %></p>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col"><%= __('dashboard.public.anomalyTable.score') %></th>
+                      <th scope="col"><%= __('dashboard.public.anomalyTable.name') %></th>
+                      <th scope="col"><%= __('dashboard.public.anomalyTable.action') %></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% if (Array.isArray(anomalousFacilities)) { %>
+                      <% anomalousFacilities.forEach(function(facility) { %>
+                        <tr>
+                          <td>
+                            <span class="badge bg-<%= facility.scores[0] >= 3.5 ? 'success' : (facility.scores[0] >= 2 ? 'warning' : 'danger') %>">
+                              <%= facility.scores[0] %> / 5.00
+                            </span>
+                          </td>
+                          <td><%= facility.name %></td>
+                          <td>
+                            <a href="/facilities/<%= facility.id %>" class="btn btn-sm btn-outline-primary"><%= __('btn.viewFacility') %></a>
+                          </td>
+                        </tr>
+                      <% }); %>
+                    <% } else { %>
+                      <tr>
+                        <td colspan="3">
+                          <p class="text-danger"><%= __('dashboard.public.anomalyTable.error') %></p>
+                        </td>
+                      </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+                <% if(Array.isArray(anomalousFacilities) && anomalousFacilities.length == 0) { %>
+                  <p class="text-muted text-center"><%= __('dashboard.public.anomalyTable.empty') %></p>
+                <% } %>
+              </div>
+            </div>
+          </div>
+          <% if(noJurisdiction) { %>
+            <div class="col-md-6">
+              <div class="card shadow-sm h-100">
+                <div class="card-body">
+                  <h5 class="card-title"><%= __('dashboard.public.noJurisdictionTitle') %></h5>
+                  <p class="card-text"><%= __('dashboard.public.noJurisdictionDesc') %></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% } else { %>
+          <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+              <div class="card-body">
+                <h5 class="card-title">
+                  <% if (typeof jurisdictionType !== 'undefined' && typeof jurisdiction !== 'undefined') { %>
+                    <b><%= jurisdictionType %></b> <%= jurisdiction || 'N/A' %>
+                  <% } else { %>
+                    <b>N/A</b>
+                  <% } %>
+                </h5>
+                <h6><%= __('dashboard.public.scoreTrends') %></h6>
+                <% if (typeof jurisdictionType !== 'undefined' && typeof jurisdiction !== 'undefined') { %>
+                <div class="col-12 my-3">
+                  <%- include('components/overall-avg-jur-avg', {
+                    jurisdictionName: __('dashboard.public.jurisdictionAvg'),
+                    overallName: __('dashboard.public.overallAvg')
+                  }) %>
+                </div>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <% } %>
+      </div>
+    <% } else if(userType == 'facility-staff') { %>
+      <div class="welcome-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="mb-0">Facility Staff Dashboard</h2>
+          <a href="/auth/logout" class="btn btn-outline-secondary"><%= __('btn.logOut') %></a>
+        </div>
+        
+        <% if(facility) { %>
+          <div class="page-header d-flex justify-content-between align-items-center">
+            <h1 class="mb-0">
+              <span class="badge bg-<%= 
+                scores[scores.length - 1] && typeof scores[scores.length - 1].score === 'number' 
+                  ? (scores[scores.length - 1].score >= 3.5 
+                      ? 'success' 
+                      : (scores[scores.length - 1].score >= 2 
+                          ? 'warning' 
+                          : 'danger')) 
+                  : 'secondary' 
+              %>">
+                <%= scores[scores.length - 1]?.score || '0.00' %> / 5.00
+              </span>
+              <%= facility.name %>
+            </h1>
+          </div>
+
+          <div class="facility-meta d-flex flex-wrap gap-3 my-3">
+            <div class="meta-item">
+              <strong><%= __('viewFacility.municipality') %>:</strong> <%= facility.location.name %>
+            </div>
+            <div class="meta-item">
+              <strong><%= __('viewFacility.totRevs') %>:</strong> <%= summary.totalReviews %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6 my-3 h-100">
+              <h3><%= __('viewFacility.scoreGraphLabel') %></h3>
+              <%- include('components/facility-score-graph'); %>
+            </div>
+            <!-- START: Overall vs. Jurisdiction Score Trends -->
+            <div class="col-md-6 my-3 h-100">
+              <h3><%= __('viewFacility.munScoreGraphLabel') %></h3>
+              <%- include('components/overall-avg-jur-avg', {
+                jurisdictionName: __('viewFacility.jurisdictionAvg'),
+                overallName: __('viewFacility.overallAvg')
+              }) %>
+            </div>
+            <!-- END: Overall vs. Jurisdiction Score Trends -->
+          </div>
+        <% } %>
+      </div>
+    <% } else { %>
+      <div class="hero-section">
+        <h1 class="display-4"><%=__('home.welcomeTitle')%></h1>
+        <p class="lead"><%=__('home.welcomeSubtitle')%></p>
+        
+        <div class="cta-buttons">
+          <!-- Removed duplicate login button here -->
+          <a href="/facilities" class="btn btn-outline-primary btn-lg"><%=__('home.viewFacilitiesButton')%></a>
+        </div>
+      </div>
+      
+      <div class="row mt-5">
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%=__('home.findFacilities.title')%></h5>
+              <p class="card-text"><%=__('home.findFacilities.description')%></p>
+              <a href="/facilities" class="btn btn-outline-primary"><%=__('home.findFacilities.button')%></a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><%=__('home.aboutPlatform.title')%></h5>
+              <p class="card-text"><%=__('home.aboutPlatform.description')%></p>
+              <a href="/about" class="btn btn-outline-primary"><%=__('home.aboutPlatform.button')%></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% } %>
+  </div>
+
+<!-- Facilities Map Section -->
+<div class="row mt-5">
+  <div class="col-12">
+    <div class="card shadow-sm">
+      <div class="card-body">
+        <h3 class="card-title"><%=__('home.facilitiesMap.title')%></h3>
+        <p class="text-muted mb-4"><%=__('home.facilitiesMap.description')%></p>
+
+        <!-- Map Container -->
+        <div class="map-container mb-3">
+          <div id="facilities-map" class="rounded"></div>
+        </div>
+
+        <!-- Map Legend - Updated to show score-based pins instead of facility type -->
+        <div class="d-flex flex-wrap gap-3 mb-3">
+          <div class="d-flex align-items-center">
+            <i class="bi bi-geo-alt-fill me-2" style="color: #198754;"></i>
+            <span><%=__('home.facilitiesMap.legend.high')%> (>3.5)</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="bi bi-geo-alt-fill me-2" style="color: #ffc107;"></i>
+            <span><%=__('home.facilitiesMap.legend.medium')%> (2-3.5)</span>
+          </div>
+          <div class="d-flex align-items-center">
+            <i class="bi bi-geo-alt-fill me-2" style="color: #dc3545;"></i>
+            <span><%=__('home.facilitiesMap.legend.low')%> (<2)</span>
+          </div>
+        </div>
+
+        <div class="text-end">
+          <a href="/facilities" class="btn btn-outline-primary"><%=__('home.facilitiesMap.viewAllButton')%></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('components/footer') %>
+</body>
+
+<style>
+  .map-container {
+    width: 100%;
+    max-width: 100%;
+    height: 500px;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  #facilities-map {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+  }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script>
+  window.addEventListener('load', function() {
+    const map = L.map('facilities-map').setView([-6.369028, 34.888822], 6);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Updated marker icons based on scores instead of facility type
+    const highScoreIcon = L.divIcon({
+      html: '<i class="bi bi-geo-alt-fill" style="color: #198754; font-size: 1.5rem;"></i>', // Green
+      className: 'map-marker-icon',
+      iconSize: [24, 24],
+      iconAnchor: [12, 24]
+    });
+    
+    const mediumScoreIcon = L.divIcon({
+      html: '<i class="bi bi-geo-alt-fill" style="color: #ffc107; font-size: 1.5rem;"></i>', // Yellow
+      className: 'map-marker-icon',
+      iconSize: [24, 24],
+      iconAnchor: [12, 24]
+    });
+    
+    const lowScoreIcon = L.divIcon({
+      html: '<i class="bi bi-geo-alt-fill" style="color: #dc3545; font-size: 1.5rem;"></i>', // Red
+      className: 'map-marker-icon',
+      iconSize: [24, 24],
+      iconAnchor: [12, 24]
+    });
+
+    const facilities = <%- JSON.stringify(mapFacilities) %>
+
+    const markerCluster = L.markerClusterGroup();
+
+    facilities.forEach(facility => {
+      if (
+        typeof facility.latitude !== 'number' ||
+        typeof facility.longitude !== 'number' ||
+        isNaN(facility.latitude) ||
+        isNaN(facility.longitude)
+      ) {
+        console.warn(`Skipping facility "${facility.name}" due to invalid coordinates.`);
+        return;
+      }
+
+      let icon;
+      if (facility.latestScore >= 3.5) {
+        icon = highScoreIcon;
+      } else if (facility.latestScore >= 2) {
+        icon = mediumScoreIcon;
+      } else {
+        icon = lowScoreIcon;
+      }
+
+      const marker = L.marker([facility.latitude, facility.longitude], { icon: icon });
+
+      const popupContent = `
+        <strong>${facility.name}</strong><br>
+        <span class="badge bg-${(facility.latestScore ?? 0) >= 3.5 ? 'success' : (facility.latestScore ?? 0) >= 2 ? 'warning' : 'danger'}">
+          <%= __('common.score') %>: ${(facility.latestScore ?? '0.00')}/5
+        </span><br>
+        <a href="/facilities/${facility.id}" class="btn btn-sm btn-outline-primary mt-2"><%= __('home.facilitiesMap.viewFacilityButton') %></a>
+      `;
+
+      marker.bindPopup(popupContent);
+      markerCluster.addLayer(marker);
+    });
+
+    map.addLayer(markerCluster);
+
+    if (window.innerWidth < 768) {
+      map.setZoom(5);
+    }
+
+    setTimeout(() => map.invalidateSize(), 500);
+  });
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const languageOptions = document.querySelectorAll('.language-option');
+    
+    languageOptions.forEach(option => {
+      option.addEventListener('click', function(e) {
+        e.preventDefault();
+        const lang = this.getAttribute('data-lang');
+        
+        // Create/update a cookie for the language preference
+        document.cookie = `locale=${lang};path=/;max-age=${60*60*24*30}`;
+        
+        // Reload the page to apply the new language
+        window.location.reload();
+      });
+    });
+  });
+</script>
+</html>

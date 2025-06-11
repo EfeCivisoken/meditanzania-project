@@ -1,0 +1,80 @@
+<svg width="375" height="667" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- ============== -->
+  <!-- Main Background -->
+  <!-- ============== -->
+  <rect width="100%" height="100%" fill="#f0f0f0" />
+  
+  <!-- ============== -->
+  <!-- Header Section -->
+  <!-- ============== -->
+  <rect x="0" y="0" width="375" height="60" fill="#4CAF50" />
+  <!-- App Title -->
+  <text x="20" y="40" font-family="Arial, sans-serif" font-size="18" fill="white" font-weight="bold">MediTanzania</text>
+  <!-- Language Toggle -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="18" fill="white">EN/SW</text>
+  
+  <!-- ============== -->
+  <!-- Search Section -->
+  <!-- ============== -->
+  <!-- Search Input Field -->
+  <rect x="20" y="80" width="335" height="40" rx="10" fill="white" stroke="#ddd" stroke-width="1" />
+  <text x="30" y="105" font-family="Arial, sans-serif" font-size="14" fill="#888">Search by facility or location...</text>
+  <!-- Search Icon -->
+  <circle cx="330" cy="100" r="12" fill="#f5f5f5" />
+  <text x="330" y="105" font-family="Arial, sans-serif" font-size="14" fill="#888" text-anchor="middle">🔍</text>
+  
+  <!-- Search Button -->
+  <rect x="20" y="130" width="335" height="40" rx="10" fill="#4CAF50" />
+  <text x="187.5" y="155" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">Search</text>
+  
+  <!-- ============== -->
+  <!-- Filter Section -->
+  <!-- ============== -->
+  <rect x="20" y="190" width="335" height="40" rx="10" fill="#4CAF50" />
+  <text x="187.5" y="215" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">Filters</text>
+  
+  <!-- ======================= -->
+  <!-- Search Results Section -->
+  <!-- ======================= -->
+  
+  <!-- Facility Card 1 -->
+  <rect x="20" y="250" width="335" height="100" rx="10" fill="white" stroke="#ddd" stroke-width="1" />
+  <!-- Facility Name -->
+  <text x="30" y="275" font-family="Arial, sans-serif" font-size="16" fill="#333" font-weight="bold">Facility Name 1</text>
+  <!-- Location Info -->
+  <text x="30" y="300" font-family="Arial, sans-serif" font-size="14" fill="#888">Dar es Salaam, Tanzania</text>
+  <!-- Rating -->
+  <text x="30" y="325" font-family="Arial, sans-serif" font-size="14" fill="#FFD700">★★★★☆</text>
+  <text x="100" y="325" font-family="Arial, sans-serif" font-size="14" fill="#333">4.2/5</text>
+  <!-- View Details Button -->
+  <rect x="250" y="280" width="90" height="30" rx="5" fill="#4CAF50" />
+  <text x="295" y="300" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">View Details</text>
+  
+  <!-- Facility Card 2 -->
+  <rect x="20" y="370" width="335" height="100" rx="10" fill="white" stroke="#ddd" stroke-width="1" />
+  <!-- Facility Name -->
+  <text x="30" y="395" font-family="Arial, sans-serif" font-size="16" fill="#333" font-weight="bold">Facility Name 2</text>
+  <!-- Location Info -->
+  <text x="30" y="420" font-family="Arial, sans-serif" font-size="14" fill="#888">Arusha, Tanzania</text>
+  <!-- Rating -->
+  <text x="30" y="445" font-family="Arial, sans-serif" font-size="14" fill="#FFD700">★★★☆☆</text>
+  <text x="100" y="445" font-family="Arial, sans-serif" font-size="14" fill="#333">3.5/5</text>
+  <!-- View Details Button -->
+  <rect x="250" y="400" width="90" height="30" rx="5" fill="#4CAF50" />
+  <text x="295" y="420" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">View Details</text>
+  
+  <!-- =================== -->
+  <!-- Footer Navigation  -->
+  <!-- =================== -->
+  <rect x="0" y="600" width="375" height="67" fill="#4CAF50" />
+  
+  <!-- Navigation Icons (placeholder circles) -->
+  <circle cx="60" cy="625" r="15" fill="#3b8c3e" />
+  <circle cx="187.5" cy="625" r="15" fill="#3b8c3e" />
+  <circle cx="300" cy="625" r="15" fill="#3b8c3e" />
+  
+  <!-- Navigation Labels -->
+  <text x="60" y="640" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Home</text>
+  <text x="187.5" y="640" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Feedback</text>
+  <text x="300" y="640" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle">Profile</text>
+</svg>

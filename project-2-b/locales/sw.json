@@ -1,0 +1,516 @@
+{
+  "common": {
+    "region": "Mkoa",
+    "district": "Wilaya",
+    "ward": "Wadi",
+    "municipality": "Manispaa",
+    "score": "Alama",
+    "alerts": {
+      "error": "Kosa!",
+      "success": "Mafanikio!"
+    },
+    "navbar": {
+      "home": "Nyumbani",
+      "facilities": "Vifaa",
+      "about": "Kuhusu",
+      "login": "Ingia",
+      "logout": "Ingia nje",
+      "topn": "Ripoti ya haraka",
+      "language": "Lugha",
+      "previous": "Zamani",
+      "next": "Ifuatayo"
+    },
+    "footer": {
+      "copyright": "&copy; 2025 Meditanzania &bull; Kuboresha huduma ya afya kupitia uwazi"
+    }
+  },
+  "dashboard": {
+    "admin": {
+      "title": "Dashibodi ya Msimamizi",
+      "adminPanel": "Nenda kwa jopo la admin",
+      "welcomeMessage": "Karibu Meditanzania! Tumia jopo la admin kusimamia watumiaji, vifaa, na mipangilio ya mfumo."
+    },
+    "government": {
+      "title": "Dashibodi rasmi ya serikali",
+      "anomaly": "Dashibodi ya Anomaly",
+      "welcomeMessage": "Karibu Meditanzania! Chini, utapata takwimu kuhusu mamlaka yako.",
+      "noJurisdictionTitle": "Hakuna mamlaka",
+      "noJurisdictionDesc": "Kwa sasa hauna seti ya mamlaka. Ikiwa hii sio sawa, wasiliana na msimamizi.",
+      "anomalyTable": {
+        "score": "Alama",
+        "name": "Jina la kituo",
+        "action": "Hatua",
+        "empty": "Hivi sasa, hakuna vifaa vilivyowekwa alama."
+      },
+      "jurisdictionAvg": "Wastani wa mamlaka",
+      "overallAvg": "Wastani wa jumla",
+      "anomalyDesc": "Hapo chini kuna vifaa ambavyo vimepewa alama na algorithms zetu kama kawaida.",
+      "scoreTrends": "Alama ya wastani ya alama dhidi ya alama ya wastani"
+    },
+    "public": {
+      "title": "Dashibodi rasmi ya umma",
+      "anomaly": "Dashibodi ya Anomaly",
+      "anomalyTable": {
+        "score": "Alama",
+        "name": "Jina la kituo",
+        "action": "Hatua",
+        "empty": "Hivi sasa, hakuna vifaa vilivyowekwa alama."
+      },
+      "welcomeMessage": "Karibu Meditanzania! Chini, utapata takwimu kuhusu mamlaka yako.",
+      "noJurisdictionTitle": "Hakuna mamlaka",
+      "noJurisdictionDesc": "Kwa sasa hauna seti ya mamlaka. Ikiwa hii sio sawa, wasiliana na msimamizi.",
+      "jurisdictionAvg": "Wastani wa mamlaka",
+      "overallAvg": "Wastani wa jumla",
+      "anomalyDesc": "Hapo chini kuna vifaa ambavyo vimepewa alama na algorithms zetu kama kawaida.",
+      "scoreTrends": "Alama ya wastani ya alama dhidi ya alama ya wastani"
+    },
+    "facility": {
+      "title": "Dashibodi ya wafanyikazi wa kituo",
+      "summary": "Muhtasari",
+      "averageRating": "Ukadiriaji wa wastani:",
+      "totalReviews": "Maoni ya Jumla:",
+      "surveyResponses": "Majibu ya uchunguzi",
+      "overallRating": "Ukadiriaji wa jumla:",
+      "noResponses": "Hakuna majibu ya uchunguzi yanayopatikana.",
+      "noDetails": "Hakuna majibu ya kina yanayopatikana."
+    }
+  },
+  "home": {
+    "welcomeTitle": "Karibu Meditanzania",
+    "welcomeSubtitle": "Kuboresha huduma ya afya nchini Tanzania kupitia uwazi na maoni ya jamii.",
+    "loginButton": "Ingia",
+    "viewFacilitiesButton": "Angalia vifaa",
+    "findFacilities": {
+      "title": "Pata vifaa vya huduma ya afya",
+      "description": "Vinjari na utafute vifaa vya huduma ya afya kote Tanzania.",
+      "button": "Chunguza vifaa"
+    },
+    "aboutPlatform": {
+      "title": "Kuhusu jukwaa",
+      "description": "Jifunze jinsi Meditanzania inavyoboresha ufikiaji wa huduma ya afya na ubora.",
+      "button": "Jifunze zaidi"
+    },
+    "facilitiesMap": {
+      "title": "Ramani ya vifaa vya huduma ya afya",
+      "description": "Chunguza vifaa vya huduma ya afya kote Tanzania. Bonyeza kwenye alama kuona maelezo.",
+      "placeholder": "Ramani inayoingiliana itapakia hapa",
+      "viewAllButton": "Angalia vifaa vyote",
+      "viewFacilityButton": "Angalia kituo",
+      "legend": {
+        "high": "Alama ya juu",
+        "medium": "Alama ya kati",
+        "low": "Alama ya chini"
+      }
+    },
+    "recentUpdates": {
+      "title": "Sasisho za hivi karibuni",
+      "description": "Kaa na habari juu ya maboresho ya hivi karibuni katika vituo vya huduma ya afya.",
+      "viewAllButton": "Angalia sasisho zote",
+      "update1": {
+        "title": "Mfumo mpya wa uchunguzi ulizinduliwa",
+        "date": "Aprili 15, 2025",
+        "description": "Tumeboresha mfumo wetu wa utafiti ili iwe rahisi kwa raia kutoa maoni juu ya uzoefu wao wa huduma ya afya."
+      },
+      "update2": {
+        "title": "Vituo 10 vipya vimeongezwa",
+        "date": "Aprili 8, 2025",
+        "description": "Meditanzania sasa inafuatilia vituo 10 vya huduma ya afya katika mkoa wa Dodoma."
+      },
+      "update3": {
+        "title": "Programu ya Uboreshaji wa Kituo",
+        "date": "Machi 30, 2025",
+        "description": "Wizara ya Afya imezindua mpango mpya wa kuboresha vifaa kulingana na maoni ya raia."
+      }
+    },
+    "successStories": {
+      "title": "Hadithi za Mafanikio",
+      "description": "Soma jinsi maoni ya jamii yamesaidia kuboresha huduma za afya.",
+      "readMoreButton": "Soma hadithi zaidi",
+      "story1": {
+        "content": "Baada ya ripoti nyingi juu ya nyakati ndefu za kungojea, kliniki yetu ya ndani ilitekeleza mfumo mpya wa miadi. Sasa naweza kuona daktari ndani ya dakika 30 ya kuwasili!",
+        "author": "Maria Joseph",
+        "location": "Kliniki ya Jumuiya ya Dar Es Salaam"
+      },
+      "story2": {
+        "content": "Shukrani kwa maoni yaliyokusanywa kupitia Meditanzania, Kituo chetu cha Afya Vijijini kilipokea ufadhili wa vifaa muhimu vya matibabu. Hii imeboresha sana ubora wa utunzaji.",
+        "author": "Dk Emmanuel Mwangi",
+        "location": "Kituo cha Afya cha Vijijini cha Moshi"
+      }
+    }
+  },
+  "login": {
+    "pageTitle": "Ingia",
+    "formTitle": "Ingia kwenye akaunti yako",
+    "emailLabel": "Anwani ya barua pepe",
+    "emailPlaceholder": "Ingiza barua pepe yako",
+    "passwordLabel": "Nenosiri",
+    "passwordPlaceholder": "Ingiza nywila yako",
+    "rememberMe": "Nikumbuke",
+    "loginButton": "Ingia",
+    "forgotPassword": "Umesahau nywila?",
+    "createAccount": "Unda akaunti"
+  },
+  "facilities": {
+    "pageTitle": "Orodha ya vifaa",
+    "heading": "Vituo vya huduma ya afya",
+    "table": {
+      "name": "Jina la kituo",
+      "type": "Aina",
+      "municipality": "Manispaa",
+      "actions": "Vitendo",
+      "score": "Alama"
+    },
+    "viewDetails": "Tazama maelezo",
+    "noFacilities": "Hakuna vifaa vilivyopatikana."
+  },
+  "recentUpdates": {
+    "title": "Sasisho za hivi karibuni",
+    "description": "Kaa na habari juu ya maboresho ya hivi karibuni katika vituo vya huduma ya afya.",
+    "viewAllButton": "Angalia sasisho zote",
+    "update1": {
+      "title": "Mfumo mpya wa uchunguzi ulizinduliwa",
+      "date": "Aprili 15, 2025",
+      "description": "Tumeboresha mfumo wetu wa utafiti ili iwe rahisi kwa raia kutoa maoni juu ya uzoefu wao wa huduma ya afya."
+    },
+    "update2": {
+      "title": "Vituo 10 vipya vimeongezwa",
+      "date": "Aprili 8, 2025",
+      "description": "Meditanzania sasa inafuatilia vituo 10 vya huduma ya afya katika mkoa wa Dodoma."
+    },
+    "update3": {
+      "title": "Programu ya Uboreshaji wa Kituo",
+      "date": "Machi 30, 2025",
+      "description": "Wizara ya Afya imezindua mpango mpya wa kuboresha vifaa kulingana na maoni ya raia."
+    }
+  },
+  "successStories": {
+    "title": "Hadithi za Mafanikio",
+    "description": "Soma jinsi maoni ya jamii yamesaidia kuboresha huduma za afya.",
+    "readMoreButton": "Soma hadithi zaidi",
+    "story1": {
+      "content": "Baada ya ripoti nyingi juu ya nyakati ndefu za kungojea, kliniki yetu ya ndani ilitekeleza mfumo mpya wa miadi. Sasa naweza kuona daktari ndani ya dakika 30 ya kuwasili!",
+      "author": "Maria Joseph",
+      "location": "Kliniki ya Jumuiya ya Dar Es Salaam"
+    },
+    "story2": {
+      "content": "Shukrani kwa maoni yaliyokusanywa kupitia Meditanzania, Kituo chetu cha Afya Vijijini kilipokea ufadhili wa vifaa muhimu vya matibabu. Hii imeboresha sana ubora wa utunzaji.",
+      "author": "Dk Emmanuel Mwangi",
+      "location": "Kituo cha Afya cha Vijijini cha Moshi"
+    }
+  },
+  "viewFacility": {
+    "pageTitle": "Angalia kituo",
+    "updates": "Sasisho",
+    "noUpdatesYet": "Hakuna sasisho zilizowekwa bado.",
+    "catTrends": "Mwenendo wa jamii",
+    "totRevs": "Hakiki jumla",
+    "municipality": "Manispaa",
+    "postUpdate": "Tuma sasisho",
+    "updatePlaceholder": "Ingiza sasisho lako hapa",
+    "postUpdateBtn": "Wasilisha sasisho",
+    "scoreGraphLabel": "Alama ya kituo",
+    "munScoreGraphLabel": "Manispaa wastani wa alama dhidi ya alama ya wastani",
+    "jurisdictionAvg": "Wastani wa Manispaa",
+    "overallAvg": "Wastani wa jumla",
+    "monthLabel": "Mwezi",
+    "scoreLabel": "Alama"
+  },
+  "btn": {
+    "download": "Pakua pdf",
+    "back": "Nyuma",
+    "compare": "Linganisha",
+    "compareRemove": "Ondoa kutoka kwenye orodha ya kulinganisha",
+    "remove": "Ondoa",
+    "compareAdd": "Ongeza kwenye orodha ya kulinganisha",
+    "viewFacility": "Angalia kituo hiki",
+    "logOut": "Ingia nje"
+  },
+  "compare": {
+    "title": "Linganisha vifaa",
+    "toast": {
+      "addSuccess": "Kituo kimeongezwa kwenye orodha ya kulinganisha!",
+      "addFailure": "Imeshindwa kuongeza kituo kwa kulinganisha.",
+      "removeSuccess": "Kituo kimeondolewa kwenye orodha ya kulinganisha kwa mafanikio!",
+      "removeFailure": "Imeshindwa kuondoa kituo kutoka kwenye orodha ya kulinganisha."
+    }
+  },
+  "search": {
+    "title": "Vifaa vya utaftaji",
+    "noResults": "Hatukuweza kupata vifaa vyovyote vinavyolingana na swala lako.",
+    "query": "Swala",
+    "location": "Mahali",
+    "noLoc": "Hakuna iliyotolewa"
+  },
+  "searchBar": {
+    "facilityName": "Jina",
+    "facilityNamePlaceholder": "Ingiza jina la kituo",
+    "facilityLocation": "Mahali",
+    "none": "(Hakuna)",
+    "region": "(mkoa)",
+    "district": "(Wilaya)",
+    "ward": "(Ward)",
+    "municipality": "(Manispaa)",
+    "category": "Jamii",
+    "btnSearch": "Tafuta",
+    "collapseLabel": "Tafuta"
+  },
+  "filter": {
+    "selectType": "Chagua Aina za Kituo",
+    "apply": "Omba kichujio"
+  },
+  "updatePass": {
+    "action": "Badilisha nywila yangu",
+    "title": "Sasisha nywila",
+    "currentPw": "Nenosiri la sasa",
+    "newPw": "Nywila mpya",
+    "btn": "Sasisha nywila"
+  },
+  "admin": {
+    "common": {
+      "none": "Hakuna"
+    },
+    "index": {
+      "title": "Jopo la Utawala",
+      "welcome": "Karibu",
+      "users": "Simamia watumiaji",
+      "facilities": "Dhibiti vifaa",
+      "surveys": "Dhibiti tafiti",
+      "responses": "Pakia majibu",
+      "locations": "Dhibiti maeneo",
+      "back": "Nyuma"
+    },
+    "users": {
+      "title": "Watumiaji",
+      "back": "Rudi kwenye jopo la admin",
+      "name": "Jina",
+      "email": "Barua pepe",
+      "type": "Aina ya Mtumiaji",
+      "details": "Maelezo",
+      "createUser": "Unda mtumiaji mpya",
+      "password": "Nenosiri",
+      "typeAdmin": "Admin",
+      "typeGovernmentOfficial": "Afisa wa serikali",
+      "typePublicOfficial": "Afisa wa umma",
+      "typeFacilityStaff": "Wafanyikazi wa kituo",
+      "facility": "Kituo",
+      "createUserButton": "Unda mtumiaji"
+    },
+    "user": {
+      "title": "Usimamizi wa Mtumiaji",
+      "backToUserList": "Rudi kwenye orodha ya watumiaji",
+      "userInformation": "Habari ya Mtumiaji",
+      "name": "Jina",
+      "email": "Barua pepe",
+      "password": "Nenosiri",
+      "type": "Aina",
+      "facility": "Kituo",
+      "jurisdiction": "Mamlaka",
+      "updateUser": "Sasisha mtumiaji",
+      "updateUserButton": "Sasisha mtumiaji",
+      "deleteUserButton": "Futa mtumiaji",
+      "setJurisdiction": "Weka mamlaka",
+      "setRegion": "Weka mkoa",
+      "setDistrict": "Weka wilaya",
+      "setWard": "Weka Ward",
+      "setMunicipality": "Weka manispaa",
+      "setJurisdictionButton": "Seti",
+      "errorInvalidUserId": "Kitambulisho batili cha mtumiaji",
+      "errorUserNotFound": "Mtumiaji maalum hakuweza kupatikana."
+    },
+    "facilities": {
+      "title": "Dhibiti vifaa",
+      "back": "Rudi kwenye jopo la admin",
+      "name": "Jina la kituo",
+      "score": "Alama",
+      "type": "Aina",
+      "municipality": "Manispaa",
+      "details": "Maelezo",
+      "updateScores": "Sasisha alama za kituo",
+      "createFacility": "Unda kituo kipya",
+      "commonName": "Jina la kawaida",
+      "phone": "Nambari ya simu",
+      "address": "Anwani",
+      "email": "Barua pepe",
+      "website": "Tovuti",
+      "longitude": "Longitudo",
+      "latitude": "Latitudo",
+      "location": "Mahali",
+      "selectMunicipality": "Chagua manispaa",
+      "createFacilityButton": "Unda kituo"
+    },
+    "facility": {
+      "title": "Usimamizi wa kituo",
+      "back": "Rudi kwenye vifaa",
+      "info": "Habari ya kituo",
+      "score": "Alama",
+      "name": "Jina",
+      "commonName": "Jina la kawaida",
+      "type": "Aina",
+      "phoneNumber": "Nambari ya simu",
+      "status": "Hali",
+      "address": "Anwani",
+      "email": "Barua pepe",
+      "website": "Tovuti",
+      "longitude": "Longitudo",
+      "latitude": "Latitudo",
+      "municipality": "Manispaa",
+      "update": "Sasisha kituo",
+      "updateButton": "Sasisha",
+      "deactivateLink": "Tengeneza kituo hiki",
+      "activateLink": "Fanya tena kituo hiki",
+      "errorTitle": "Kituo hakipatikani",
+      "errorMessage": "Kituo kilichoombewa haipo au haikuweza kupatikana tena."
+    },
+    "surveys": {
+      "title": "Usimamizi wa Utafiti",
+      "back": "Rudi kwenye jopo la admin",
+      "name": "Jina la uchunguzi",
+      "details": "Tazama maelezo",
+      "none": "Hakuna uchunguzi ambao umeundwa bado.",
+      "createTitle": "Unda uchunguzi mpya",
+      "csvLayoutTitle": "Fomati inayotarajiwa ya CSV:",
+      "column": {
+        "question": "Swali",
+        "type": "Aina (maandishi au nambari)",
+        "weight": "Uzani",
+        "transformation": "Mabadiliko",
+        "category": "Jamii"
+      },
+      "exampleQuestion1": "Kituo kilikuwa safi kiasi gani?",
+      "exampleQuestion2": "Fafanua unyanyasaji wowote.",
+      "defaultCategoryNote": "(Jamii chaguo -msingi)",
+      "columnBreakdownTitle": "Maelezo ya safu:",
+      "columnDescriptions": {
+        "question": "Swali: Nakala ya swali",
+        "type": "Aina: ama 'maandishi' au 'nambari'",
+        "weight": "Uzito: Thamani ya nambari inayowakilisha umuhimu",
+        "transformation": "Mabadiliko: Moja ya mraba, sqrt, inverse, au hakuna"
+      },
+      "transformation": {
+        "square": "`mraba`: Viwanja vya thamani ya kusisitiza alama za juu",
+        "sqrt": "`sqrt`: mizizi ya mraba kwa chini ya viwango vya juu",
+        "inverse": "`inverse`: inachukua 1/x, kuadhibu maadili makubwa",
+        "none": "`Hakuna`: alama mbichi hutumiwa moja kwa moja"
+      },
+      "uploadPrompt": "Pakia uchunguzi wako CSV hapa chini:",
+      "form": {
+        "name": "Jina la uchunguzi",
+        "csv": "Faili ya CSV",
+        "create": "Unda Utafiti"
+      }
+    },
+    "survey": {
+      "title": "Maelezo ya uchunguzi",
+      "back": "Rudi kwenye tafiti",
+      "infoTitle": "Habari ya uchunguzi",
+      "name": "Jina",
+      "column": {
+        "question": "Swali",
+        "type": "Aina",
+        "weight": "Uzani",
+        "transformation": "Mabadiliko",
+        "details": "Maelezo"
+      },
+      "typeText": "Maandishi",
+      "typeInteger": "Nambari",
+      "view": "Tazama swali",
+      "none": "Hakuna maswali yaliyoongezwa kwa sasa.",
+      "updateTitle": "Sasisha Jina",
+      "form": {
+        "name": "Jina la uchunguzi"
+      }
+    },
+    "surveyQuestion": {
+      "title": "Swali la uchunguzi",
+      "back": "Nyuma",
+      "details": "Maelezo ya swali",
+      "question": "Swali",
+      "type": "Aina",
+      "weight": "Uzani",
+      "transformationTitle": "Mabadiliko",
+      "category": "Jamii",
+      "typeText": "Maandishi",
+      "typeInteger": "Nambari",
+      "defaultCategory": "Chaguo -msingi",
+      "createCategory": "Unda Jamii",
+      "categoryName": "Jina",
+      "createButton": "Unda",
+      "updateQuestion": "Sasisha swali",
+      "questionText": "Maandishi ya swali",
+      "questionWeight": "Uzito wa swali",
+      "transformationLabel": "Kazi ya mabadiliko ya swali",
+      "categoryLabel": "Jamii",
+      "transformation": {
+        "none": "Hakuna",
+        "square": "Mraba (x²)",
+        "sqrt": "Mizizi ya mraba (√x)",
+        "inverse": "Mgawanyiko (1/x)"
+      },
+      "updateButton": "Sasisha"
+    },
+    "responses": {
+      "title": "Pakia majibu ya uchunguzi",
+      "back": "Rudi kwenye dashibodi ya admin",
+      "surveyLabel": "Chagua Utafiti",
+      "csvLabel": "Pakia faili ya CSV",
+      "submitButton": "Pakia majibu"
+    },
+    "locations": {
+      "title": "Dhibiti maeneo",
+      "back": "Rudi kwenye dashibodi ya admin",
+      "regions": "Mikoa",
+      "districts": "Wilaya",
+      "wards": "Kata",
+      "municipalities": "Manispaa",
+      "name": "Jina",
+      "createdAt": "Iliyoundwa kwa",
+      "edit": "Hariri",
+      "delete": "Futa",
+      "actions": "Vitendo",
+      "update": "Sasisha",
+      "addRegion": "Ongeza mkoa",
+      "addDistrict": "Ongeza wilaya",
+      "addWard": "Ongeza Kata",
+      "addMunicipality": "Ongeza manispaa",
+      "regionNamePlaceholder": "Jina la mkoa ...",
+      "districtNamePlaceholder": "Jina la wilaya ...",
+      "wardNamePlaceholder": "Jina la Kata ...",
+      "municipalityNamePlaceholder": "Jina la Manispaa ...",
+      "noRegions": "Hakuna mikoa inayopatikana.",
+      "noDistricts": "Hakuna wilaya zinazopatikana.",
+      "noWards": "Hakuna wadi zinazopatikana.",
+      "noMunicipalities": "Hakuna manispaa inayopatikana."
+    }
+  },
+  "about": {
+    "title": "Kuhusu",
+    "pageTitle": "Kuhusu Meditanzania",
+    "p1": "Meditanzania ni jukwaa la uwazi la huduma ya afya ya Tanzania, kutoa habari mpya juu ya vituo vya huduma ya afya ya umma na ya kibinafsi kote nchini.",
+    "p2": "Jukwaa letu linawapa nguvu raia na data ya kuaminika na hakiki kufanya maamuzi sahihi na inakuza uwajibikaji ndani ya mfumo wa huduma ya afya.",
+    "mission": "Ujumbe wetu",
+    "missionP1": "Ili kuwawezesha Tanzania kwa kuongeza uwazi na upatikanaji wa habari ya huduma ya afya, kuwasaidia kupata utunzaji sahihi wakati wanahitaji.",
+    "vision": "Maono yetu",
+    "visionText": "Ili kuunda Tanzania yenye afya kupitia ufahamu unaotokana na data, ushiriki wa jamii, na uboreshaji unaoendelea katika utoaji wa huduma ya afya.",
+    "regions": "Mikoa",
+    "regionsMuted": "Mikoa yote ya Tanzania kufunikwa",
+    "facilities": "Vituo vya huduma ya afya",
+    "facilitiesMuted": "kutoka hospitali hadi kliniki",
+    "reviews": "Hakiki za raia",
+    "reviewsMuted": "Kuboresha uwazi wa huduma ya afya",
+    "team": "Timu yetu",
+    "frontend": "Msanidi programu wa mwisho",
+    "backend": "Msanidi programu wa mwisho",
+    "projLead": "Mkurugenzi wa Mradi",
+    "taBio": "Inaongoza muundo wa kiufundi wa watumiaji na maendeleo ya mbele ili kuhakikisha uzoefu wa watumiaji wa angavu na msikivu.",
+    "jeBio": "Inasimamia utoaji wa mradi na inakuza API za upande wa seva na ujumuishaji wa hifadhidata.",
+    "ecBio": "Inatumia huduma za msingi za kurudisha nyuma na inahakikisha uwepo wa mfumo na utendaji.",
+    "emBio": "Inaratibu shughuli na inachangia kurudisha nyuma maendeleo ili kuelekeza kazi."
+  },
+  "topn": {
+    "title": "Ripoti ya haraka",
+    "all": "Vifaa vyote",
+    "best": "Vifaa vya juu vya kufanya",
+    "worst": "Vifaa vya chini vya kufanya",
+    "btnApply": "Omba kichujio"
+  }
+}

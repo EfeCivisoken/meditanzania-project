@@ -1,0 +1,46 @@
+<%- include('../components/header', { title: __('admin.index.title')}) %>
+<div class="container py-5">
+  <div class="text-center mb-5">
+    <h1><%= __('admin.index.title') %></h1>
+    <h2><%= __('admin.index.welcome') %>, <%= userName %>!</h2>
+  </div>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
+    <div class="col d-grid">
+      <a href="/admin/users" class="btn btn-info btn-lg rounded-pill">
+        <i class="bi bi-people-fill"></i> <%= __('admin.index.users') %>
+      </a>
+    </div>
+    <div class="col d-grid">
+      <a href="/admin/facilities" class="btn btn-info btn-lg rounded-pill">
+        <i class="bi bi-hospital-fill"></i> <%= __('admin.index.facilities') %>
+      </a>
+    </div>
+    <div class="col d-grid">
+      <a href="/admin/surveys" class="btn btn-info btn-lg rounded-pill">
+        <i class="bi bi-clipboard-data"></i> <%= __('admin.index.surveys') %>
+      </a>
+    </div>
+    <div class="col d-grid">
+      <a href="/admin/responses" class="btn btn-info btn-lg rounded-pill">
+        <i class="bi bi-upload"></i> <%= __('admin.index.responses') %>
+      </a>
+    </div>
+    <div class="col d-grid">
+      <a href="/admin/locations" class="btn btn-info btn-lg rounded-pill">
+        <i class="bi bi-geo-alt-fill"></i> <%= __('admin.index.locations') %>
+      </a>
+    </div>
+  </div>
+
+  <div class="text-center mt-5">
+    <a href="/" class="btn btn-outline-secondary btn-lg">
+      <i class="bi bi-arrow-left"></i> <%= __('admin.index.back') %>
+    </a>
+  </div>
+</div>
+
+<%- include('../components/footer') %>
+
+</body>
+</html>

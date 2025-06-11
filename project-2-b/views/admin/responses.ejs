@@ -1,0 +1,26 @@
+<%- include('../components/header', { title: __('admin.responses.title') }) %>
+  <a href="/admin" class="btn btn-secondary mb-3">&larr; <%= __('admin.responses.back') %></a>
+  <h2 class="text-center mb-4"><%= __('admin.responses.title') %></h2>
+
+  <div class="container">
+    <form action="/admin/responses/upload" method="POST" enctype="multipart/form-data">
+      <div class="mb-3">
+        <label for="name" class="form-label"><%= __('admin.responses.surveyLabel') %></label>
+        <select name="id" id="name" class="form-select">
+          <% surveys.forEach(survey => { %>
+            <option value="<%= survey.id %>"><%= survey.name %></option>
+          <% }) %>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="csv" class="form-label"><%= __('admin.responses.csvLabel') %></label>
+        <input type="file" name="csv" id="csv" class="form-control" />
+      </div>
+      <button type="submit" class="btn btn-primary"><%= __('admin.responses.submitButton') %></button>
+    </form>
+  </div>
+
+  <%- include('../components/footer') %>
+
+</body>
+</html>

@@ -1,0 +1,100 @@
+
+<%- include('components/header', { title: __('compare.title') }) %>
+<div class="content-wrapper">
+
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1><%= __('compare.title') %></h1>
+    <%- include('components/download-button', {style: 'float: right;'}) %>
+  </div>
+  <div id="downloadable">
+    <% facilities.forEach(f => { %>
+      <div class="card mb-4" id="<%= f.id %>">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div class="btn-group">
+            <a class="btn btn-info" href="/facilities/<%= f.id %>"><%= __('btn.viewFacility') %></a>
+          <button onclick="removeCompareFacility('<%= f.id %>')" class="btn btn-sm btn-danger"><%= __('btn.remove') %></button>
+          </div>
+        </div>
+        <div class="card-body">
+            <h1 class="d-flex align-items-center">
+            <span class="badge bg-success rating-badge me-2">
+              <%= f.score?.score ?? f.scores[0]?.score %> / 5
+            </span>
+            <span><%= f.name %></span>
+            </h1>
+          <div class="mt-4">
+            <%- include('components/facility-score-graph', { scores: facilityScores[f.id], unique: `${f.id}-graph` }); %>
+          </div>
+        </div>
+      </div>
+    <% }); %>
+  </div>
+</div>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+function removeCompareFacility(facilityId) {
+  axios.post('/compare/remove', {
+      facility: facilityId
+    })
+    .then(response => {
+        const toast = document.createElement('div');
+        toast.className = 'toast align-items-center text-bg-success border-0';
+        toast.role = 'alert';
+        toast.ariaLive = 'assertive';
+        toast.ariaAtomic = 'true';
+        toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">
+          Facility removed successfully!
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        `;
+        document.body.appendChild(toast);
+
+        const bootstrapToast = new bootstrap.Toast(toast);
+        bootstrapToast.show();
+
+        setTimeout(() => {
+        toast.remove();
+        }, 3000);
+
+      const facilityListing = document.getElementById(facilityId);
+      if (facilityListing) {
+        facilityListing.remove();
+      }
+    })
+    .catch(error => {
+      console.error('Error removing facility from comparison list:', error);
+      const toast = document.createElement('div');
+      toast.className = 'toast align-items-center text-bg-danger border-0';
+      toast.role = 'alert';
+      toast.ariaLive = 'assertive';
+      toast.ariaAtomic = 'true';
+      toast.innerHTML = `
+      <div class="d-flex">
+        <div class="toast-body">
+        Failed to remove facility from comparison list. Please try again.
+        </div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+      `;
+      document.body.appendChild(toast);
+
+      const bootstrapToast = new bootstrap.Toast(toast);
+      bootstrapToast.show();
+
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    });
+  }
+</script>
+
+<%- include('components/footer') %>
+
+</body>
+</html>

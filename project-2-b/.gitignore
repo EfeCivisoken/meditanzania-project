@@ -1,0 +1,28 @@
+# dependencies
+node_modules/
+
+# macOS
+.DS_Store
+*.pem
+
+# SQLite database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Environment variables
+.env*.local
+.env
+
+# Editor files
+.vscode/
+
+# Coverage map
+coverage/
+
+# Upload directory
+uploads/
+
+# Models can't be committed
+ml_api/results
+ml_api/swahili-sentiment-model

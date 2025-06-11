@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MediTanzania &bull; <%=__('viewFacility.pageTitle')%></title>
+  <!-- Bootstrap CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #f8f9fa;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .content-wrapper {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .page-header {
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .facilities-table {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      overflow: hidden;
+    }
+
+    .table-responsive {
+      margin-bottom: 0;
+    }
+
+    .facilities-table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+    }
+
+    .detail-link {
+      color: #0d6efd;
+      text-decoration: none;
+    }
+
+    .detail-link:hover {
+      text-decoration: underline;
+    }
+
+    .rating-badge {
+      font-size: 1.2rem;
+      padding: 0.4em 0.8em;
+    }
+
+    .btn-secondary {
+      margin-bottom: 1rem;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+    }
+
+    ul li {
+      margin-bottom: 1.25rem;
+      line-height: 1.6;
+    }
+
+    ul li strong {
+      color: #0d6efd;
+    }
+
+    ul li small {
+      color: #6c757d;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 768px) {
+      .facilities-table {
+        border-radius: 0;
+      }
+
+      .table-responsive {
+        border-radius: 8px;
+        overflow: hidden;
+      }
+
+      .page-header h1 {
+        font-size: 1.6rem;
+      }
+
+      .rating-badge {
+        font-size: 1.1rem;
+      }
+    }
+
+    .facility-meta {
+      background-color: #ffffff;
+      padding: 1rem 1.5rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);
+      font-size: 1rem;
+    }
+
+    .meta-item {
+      margin-right: 2rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">MediTanzania</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/"><%=__('common.navbar.home')%></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/facilities"><%=__('common.navbar.facilities')%></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about"><%=__('common.navbar.about')%></a>
+          </li>
+        </ul>
+        <div class="navbar-nav">
+          <!-- Language dropdown -->
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <%=__('common.navbar.language')%>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+              <li><a class="dropdown-item" href="/change-language/en">English</a></li>
+              <li><a class="dropdown-item" href="/change-language/sw">Kiswahili</a></li>
+            </ul>
+          </div>
+          <% if(userType) { %>
+            <a class="nav-link" href="/auth/logout"><%=__('common.navbar.logout')%></a>
+          <% } else { %>
+            <a class="nav-link" href="/auth/login"><%=__('common.navbar.login')%></a>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content-wrapper">
+    <a href="/facilities" class="btn btn-secondary"><%= __('btn.back') %></a>
+
+    <div class="page-header d-flex justify-content-between align-items-center">
+      <h1 class="mb-0">
+        <span class="badge bg-<%= (scores && scores.length > 0 ? (scores[scores.length - 1].score >= 3.5 ? 'success' : scores[scores.length - 1].score >= 2 ? 'warning' : 'danger') : 'danger') %>" style="font-size: 0.9em; padding: 0.3em 0.6em;">
+          <%= (scores && scores.length > 0 ? scores[scores.length - 1].score : 0.00) %> / 5.00
+        </span>
+        <%= facility.name %>
+      </h1>
+    </div>
+
+    <div class="facility-meta d-flex flex-wrap gap-3 my-3">
+      <div class="meta-item">
+        <strong><%= __('viewFacility.municipality') %>:</strong> <%= facility.location.name %>
+      </div>
+      <div class="meta-item">
+        <strong><%= __('viewFacility.totRevs') %>:</strong> <%= summary.totalReviews %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 my-3 h-100">
+        <h3><%= __('viewFacility.scoreGraphLabel') %></h3>
+        <%- include('../components/facility-score-graph'); %>
+      </div>
+      <!-- START: Overall vs. Jurisdiction Score Trends -->
+      <div class="col-md-6 my-3 h-100">
+        <h3><%= __('viewFacility.munScoreGraphLabel') %></h3>
+        <%- include('../components/overall-avg-jur-avg', {
+          jurisdictionName: __('viewFacility.jurisdictionAvg'),
+          overallName: __('viewFacility.overallAvg')
+        }) %>
+      </div>
+      <!-- END: Overall vs. Jurisdiction Score Trends -->
+    </div>
+
+    <% if (groupedScores && groupedScores.length > 0) { %>
+      <h2><%= __('viewFacility.catTrends') %></h2>
+      <div class="row">
+      <% groupedScores.forEach((group, i) => { %>
+        <div class="col-md-6 my-3">
+        <h5><%= group.category %></h5>
+        <canvas id="chart-<%= i %>" height="200"></canvas>
+        </div>
+      <% }); %>
+      </div>
+    <% } %>
+
+
+
+
+
+    <h2><%= __('viewFacility.postUpdate') %></h2>
+    <form action="/facilityView/<%= facility.id %>/post" method="POST" class="mb-4">
+      <textarea name="content" placeholder="<%= __('viewFacility.updatePlaceholder') %>" required class="form-control mb-2" rows="3"></textarea>
+      <button type="submit" class="btn btn-primary"><%= __('viewFacility.postUpdateBtn') %></button>
+    </form>
+
+    <h2><%= __('viewFacility.updates') %></h2>
+    <% if (facility.posts && facility.posts.length > 0) { %>
+      <ul class="list-group mb-4">
+        <% facility.posts.forEach(function(post) { %>
+          <li class="list-group-item">
+            <strong><%= post.user.name %>:</strong> <%= post.content %><br>
+            <small class="text-muted"><%= new Date(post.createdAt).toLocaleString() %></small>
+          </li>
+        <% }); %>
+      </ul>
+    <% } else { %>
+      <p class="text-muted"><%= __('viewFacility.noUpdatesYet') %></p>
+    <% } %>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const groupedScores = <%- JSON.stringify(groupedScores) %>;
+
+    groupedScores.forEach((group, i) => {
+      const ctx = document.getElementById(`chart-${i}`).getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: group.data.map(d => new Date(d.createdAt).toLocaleDateString()),
+          datasets: [{
+            label: group.category,
+            data: group.data.map(d => d.score),
+            fill: false,
+            borderWidth: 2,
+            tension: 0.3
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: {
+              suggestedMin: 0,
+              suggestedMax: 5
+            }
+          }
+        }
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+</body>
+
+</html>

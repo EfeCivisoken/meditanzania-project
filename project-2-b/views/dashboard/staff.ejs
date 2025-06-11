@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employee Dashboard - <%= facility ? facility.name : "No Facility" %></title>
+</head>
+<body>
+  <% if (facility) { %>
+    <h1>Welcome, Healthcare Employee!</h1>
+    <h2>Facility: <%= facility.name %></h2>
+    <p>District: <%= facility.district %></p>
+    <h3>Statistics:</h3>
+    <p>Average Rating: <%= stats.averageRating %></p>
+    <p>Total Reviews: <%= stats.totalReviews %></p>
+    <h3>Trend (mock data):</h3>
+    <p><%= stats.trend.join(" → ") %></p>
+  <% } else { %>
+    <h1>Dashboard</h1>
+    <p><%= message %></p>
+  <% } %>
+</body>
+</html>

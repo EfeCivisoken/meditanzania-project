@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 667">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f5f7fa" />
+  
+  <!-- Status Bar -->
+  <rect x="0" y="0" width="375" height="30" fill="#4CAF50" />
+  <text x="20" y="20" font-family="Arial, sans-serif" font-size="12" fill="white">9:41</text>
+  <text x="320" y="20" font-family="Arial, sans-serif" font-size="12" fill="white">100%</text>
+  
+  <!-- Header Section -->
+  <rect x="0" y="30" width="375" height="60" fill="#4CAF50" />
+  
+  <!-- Back Arrow -->
+  <g transform="translate(20, 60)">
+    <path d="M15 0L0 10L15 20" stroke="white" stroke-width="2" fill="none" />
+  </g>
+  
+  <text x="187.5" y="65" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle" dominant-baseline="middle">Provide Feedback</text>
+  
+  <rect x="290" y="45" width="70" height="30" rx="15" fill="#388E3C" />
+  <text x="325" y="65" font-family="Arial, sans-serif" font-size="14" fill="white" text-anchor="middle" dominant-baseline="middle">Submit</text>
+
+  <!-- Facility Information Card -->
+  <rect x="15" y="105" width="345" height="80" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  <text x="30" y="135" font-family="Arial, sans-serif" font-weight="bold" font-size="18" fill="#333">Dar es Salaam General Hospital</text>
+  <text x="30" y="160" font-family="Arial, sans-serif" font-size="14" fill="#666">Dar es Salaam, Tanzania</text>
+
+  <!-- Feedback Form Section -->
+  <text x="20" y="210" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Your Experience</text>
+  
+  <!-- Star Rating -->
+  <rect x="15" y="225" width="345" height="60" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  <text x="30" y="250" font-family="Arial, sans-serif" font-size="14" fill="#444">Rate your experience</text>
+  <g transform="translate(30, 265)">
+    <path d="M10,1.5l2.5,5.1l5.5,0.8l-4,3.9l0.9,5.4L10,14.3l-5,2.6l0.9-5.4l-4-3.9l5.5-0.8L10,1.5z" fill="#FFD700" />
+    <path d="M35,1.5l2.5,5.1l5.5,0.8l-4,3.9l0.9,5.4L35,14.3l-5,2.6l0.9-5.4l-4-3.9l5.5-0.8L35,1.5z" fill="#FFD700" />
+    <path d="M60,1.5l2.5,5.1l5.5,0.8l-4,3.9l0.9,5.4L60,14.3l-5,2.6l0.9-5.4l-4-3.9l5.5-0.8L60,1.5z" fill="#FFD700" />
+    <path d="M85,1.5l2.5,5.1l5.5,0.8l-4,3.9l0.9,5.4L85,14.3l-5,2.6l0.9-5.4l-4-3.9l5.5-0.8L85,1.5z" fill="#FFD700" />
+    <path d="M110,1.5l2.5,5.1l5.5,0.8l-4,3.9l0.9,5.4L110,14.3l-5,2.6l0.9-5.4l-4-3.9l5.5-0.8L110,1.5z" fill="#DDDDDD" />
+  </g>
+
+  <!-- Department Dropdown -->
+  <rect x="15" y="300" width="345" height="60" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  <text x="30" y="325" font-family="Arial, sans-serif" font-size="14" fill="#444">Department</text>
+  <text x="30" y="345" font-family="Arial, sans-serif" font-size="16" fill="#333">Emergency Care</text>
+  <path d="M330,335 l-10,-10 l-10,10" stroke="#888" stroke-width="2" fill="none" />
+
+  <!-- Staff Dropdown -->
+  <rect x="15" y="375" width="345" height="60" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  <text x="30" y="400" font-family="Arial, sans-serif" font-size="14" fill="#444">Staff Member</text>
+  <text x="30" y="420" font-family="Arial, sans-serif" font-size="16" fill="#333">Select staff member</text>
+  <path d="M330,410 l-10,10 l-10,-10" stroke="#888" stroke-width="2" fill="none" />
+
+  <!-- Comments Area -->
+  <rect x="15" y="450" width="345" height="120" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  <text x="30" y="475" font-family="Arial, sans-serif" font-size="14" fill="#888">Write your feedback here...</text>
+  <line x1="30" y1="550" x2="345" y2="550" stroke="#eee" stroke-width="1" />
+  <text x="320" y="565" font-family="Arial, sans-serif" font-size="12" fill="#888">0/200</text>
+
+  <!-- Anonymous Toggle -->
+  <rect x="15" y="585" width="345" height="50" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  <text x="30" y="615" font-family="Arial, sans-serif" font-size="16" fill="#333">Submit anonymously</text>
+  
+  <!-- Toggle Switch -->
+  <rect x="300" y="595" width="40" height="24" rx="12" fill="#4CAF50" />
+  <circle cx="328" cy="607" r="10" fill="white" />
+
+  <!-- Bottom Navigation -->
+  <rect x="0" y="650" width="375" height="17" fill="#ffffff" />
+  <rect x="0" y="650" width="375" height="1" fill="#dddddd" />
+  
+  <g transform="translate(62.5, 635)">
+    <rect x="-25" y="-10" width="50" height="35" fill="none" />
+    <path d="M0,0 L0,15 L20,15 L20,0 Z M-10,5 L-10,15 L-5,15 L-5,5 Z" fill="#888" />
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Home</text>
+  </g>
+  
+  <g transform="translate(187.5, 635)">
+    <rect x="-25" y="-10" width="50" height="35" fill="none" />
+    <path d="M-10,-5 L10,-5 L10,15 L-10,15 Z M-5,0 L5,0 M-5,5 L5,5 M-5,10 L5,10" stroke="#4CAF50" stroke-width="2" fill="none" />
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50" text-anchor="middle" font-weight="bold">Feedback</text>
+  </g>
+  
+  <g transform="translate(312.5, 635)">
+    <rect x="-25" y="-10" width="50" height="35" fill="none" />
+    <circle cx="0" cy="0" r="8" stroke="#888" stroke-width="2" fill="none" />
+    <path d="M0,8 C-8,8 -8,15 0,15 C8,15 8,8 0,8" stroke="#888" stroke-width="2" fill="none" />
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Profile</text>
+  </g>
+</svg>

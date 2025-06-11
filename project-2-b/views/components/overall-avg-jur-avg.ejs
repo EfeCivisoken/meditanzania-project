@@ -1,0 +1,49 @@
+
+
+        <div style="position: relative; height: 100%; min-height: 250px;">
+          <canvas id="trendChart" height="200"></canvas>
+        </div>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        // 1) chartData is injected by the controller: { labels, overallAvg, jurisdictionAvg }
+        const { labels, overallAvg, jurisdictionAvg } = <%- JSON.stringify(chartData) %>;
+
+        // 2) Grab our canvas
+        const ctx = document.getElementById('trendChart').getContext('2d');
+
+        // 3) Build a two-line line chart
+        new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels: labels,            // e.g. ["2025-01", "2025-02", …]
+            datasets: [
+              {
+                label: '<%= jurisdictionName %>',
+                data: jurisdictionAvg, // staff’s district average
+                borderColor: 'rgba(54, 162, 235, 1)',
+                fill: false
+              },
+              {
+                label: '<%= overallName %>',
+                data: overallAvg,      // all-facilities average
+                borderColor: 'rgba(75, 192, 192, 1)',
+                fill: false
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                title: { display: true, text: '<%= __("viewFacility.monthLabel") %>' }
+              },
+              y: {
+                title: { display: true, text: '<%= __("viewFacility.scoreLabel") %>' },
+                beginAtZero: true,
+                suggestedMax: 5
+              }
+            }
+          }
+        });
+      </script>

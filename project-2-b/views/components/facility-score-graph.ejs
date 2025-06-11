@@ -1,0 +1,60 @@
+<%# Facility Score Graph
+  Requires `scores` parameter
+  and `unique` parameter (unique id) %>
+
+<% const uniqueId = typeof unique !== 'undefined' ? unique : 'graph-1'; %>
+
+<div style="position: relative; height: 100%; min-height: 250px;">
+  <canvas id="<%= uniqueId %>"></canvas>
+</div>
+
+<% if(!scores) { %>
+  <p>This facility has not had a score calculated yet. Once it does, this message will go away.</p>
+<% } %>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  (function() {
+    // Injected from Express
+    const scoreHistory = <%- JSON.stringify(scores) %>;
+
+    // Extract labels and data
+    const labels = scoreHistory.map(entry => new Date(entry.createdAt).toLocaleDateString());
+    const data = scoreHistory.map(entry => entry.score);
+
+    const ctx = document.getElementById('<%= uniqueId %>').getContext('2d');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Score Over Time',
+          data: data,
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'Date'
+            }
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Score'
+            }
+          }
+        }
+      }
+    });
+  })();
+</script>

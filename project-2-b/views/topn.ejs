@@ -1,0 +1,343 @@
+<%- include('components/header', { title: __('topn.title') }) %>
+
+<div class="container">
+  <%- include('components/download-button', { style: 'float: right;'}) %>
+  <form
+  action="/topnlown"
+  method="GET"
+  class="d-flex flex-wrap align-items-center w-100 gap-3 my-2"
+  novalidate
+>
+  <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-2">
+    <label for="loc" class="form-label small-label me-2 mb-0"
+      ><%= __('searchBar.facilityLocation') %></label
+    >
+    <select name="jur" id="loc" class="form-select form-select-sm">
+      <option value="all"><%= __('topn.all') %></option>
+      <% regions.forEach((region) => { %>
+      <option value="r#<%= region.id %>" <% if(parameters.jurtype == 'region' && parameters.jurid == region.id)  { %> selected <% } %> >
+        <%= region.name %> <%= __('searchBar.region') %>
+      </option>
+      <% }) %> <% districts.forEach((district) => { %>
+      <option value="d#<%= district.id %>" <% if(parameters.jurtype == 'district' && parameters.jurid == district.id)  { %> selected <% } %> >
+        <%= district.name %> <%= __('searchBar.district') %>
+      </option>
+      <% }) %> <% wards.forEach((ward) => { %>
+      <option value="w#<%= ward.id %>" <% if(parameters.jurtype == 'ward' && parameters.jurid == ward.id)  { %> selected <% } %> >
+        <%= ward.name %> <%= __('searchBar.ward') %>
+      </option>
+      <% }) %> <% municipalities.forEach((municipality) => { %>
+      <option value="m#<%= municipality.id %>" <% if(parameters.jurtype == 'municipality' && parameters.jurid == municipality.id)  { %> selected <% } %> >
+        <%= municipality.name %> <%= __('searchBar.municipality') %>
+      </option>
+      <% }) %>
+    </select>
+  </div>
+
+  <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-2">
+    <label for="category" class="form-label small-label me-2 mb-0"
+      ><%= __('searchBar.category') %></label
+    >
+    <select name="catid" id="category" class="form-select form-select-sm">
+      <% categories.forEach(cat => { %>
+      <option value="<%= cat.id %>" <% if (parameters.catid == cat.id) { %> selected <% } %> ><%= cat.name %></option>
+      <% }); %>
+    </select>
+  </div>
+  <!-- number n -->
+  <div class="d-flex flex-column flex-sm-row align-items-sm-center mb-2">
+    <label for="number" class="form-label small-label me-2 mb-0">Number</label>
+    <select name="n" id="n" class="form-select form-select-sm">
+      <% numbers.forEach(num => { %>
+      <option value="<%= num %>" <% if(num == parameters.n) { %> selected <% } %> ><%= num %></option>
+      <% }); %>
+    </select>
+  </div>
+
+  <div class="mb-2">
+    <button type="submit" class="btn btn-primary btn-sm">
+      <%= __('topn.btnApply') %>
+    </button>
+  </div>
+</form>
+  <div id="downloadable">
+
+<!-- Top n Table -->
+<h3><%= __('topn.best') %></h3>
+<div class="facilities-table">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th><%= __('facilities.table.score') %></th>
+          <th><%=__('facilities.table.name')%></th>
+          <th><%=__('facilities.table.type')%></th>
+          <th><%=__('facilities.table.municipality')%></th>
+          <th class="text-end"><%=__('facilities.table.actions')%></th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <% topN.forEach((facility) => { %>
+        <tr>
+          <td class="align-middle">
+            <span
+              class="badge <%= facility.score ? (facility.score >= 3.5 ? 'bg-success' : (facility.score >= 2 ? 'bg-warning' : 'bg-danger')) : 'bg-danger' %> rating-badge"
+              style="font-size: 0.9em; padding: 0.3em 0.6em"
+            >
+              <%= facility.score ?? '0.00' %> / 5.00
+            </span>
+          </td>
+          <td class="align-middle"><%= facility.name %></td>
+          <td class="align-middle"><%= facility.type %></td>
+          <td class="align-middle"><%= facility.location.name %></td>
+          <td class="text-end">
+            <a
+              href="facilities/<%= facility.id %>"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <%=__('facilities.viewDetails')%>
+            </a>
+            <% if(compareFacilities.includes(`${facility.id}`)) { %>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              onclick="removeCompareFacility('<%= facility.id %>')"
+            >
+              <%= __('btn.compareRemove') %>
+            </button>
+            <% } else { %>
+            <button
+              class="btn btn-outline-info btn-sm"
+              onclick="addCompareFacility('<%= facility.id %>')"
+            >
+              <%= __('btn.compareAdd') %>
+            </button>
+            <% } %>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br />
+
+<!-- Low N Table -->
+<h3><%= __('topn.worst') %></h3>
+<div class="facilities-table">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0">
+      <thead>
+        <tr>
+          <th><%= __('facilities.table.score') %></th>
+          <th><%=__('facilities.table.name')%></th>
+          <th><%=__('facilities.table.type')%></th>
+          <th><%=__('facilities.table.municipality')%></th>
+          <th class="text-end"><%=__('facilities.table.actions')%></th>
+        </tr>
+      </thead>
+      <tbody id="table-body">
+        <% lowN.forEach((facility) => { %>
+        <tr>
+          <td class="align-middle">
+            <span
+              class="badge <%= facility.score ? (facility.score >= 3.5 ? 'bg-success' : (facility.score >= 2 ? 'bg-warning' : 'bg-danger')) : 'bg-danger' %> rating-badge"
+              style="font-size: 0.9em; padding: 0.3em 0.6em"
+            >
+              <%= facility.score ?? '0.00' %> / 5.00
+            </span>
+          </td>
+          <td class="align-middle"><%= facility.name %></td>
+          <td class="align-middle"><%= facility.type %></td>
+          <td class="align-middle"><%= facility.location.name %></td>
+          <td class="text-end">
+            <a
+              href="facilities/<%= facility.id %>"
+              class="btn btn-sm btn-outline-primary"
+            >
+              <%=__('facilities.viewDetails')%>
+            </a>
+            <% if(compareFacilities.includes(`${facility.id}`)) { %>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              onclick="removeCompareFacility('<%= facility.id %>')"
+            >
+              <%= __('btn.compareRemove') %>
+            </button>
+            <% } else { %>
+            <button
+              class="btn btn-outline-info btn-sm"
+              onclick="addCompareFacility('<%= facility.id %>')"
+            >
+              <%= __('btn.compareAdd') %>
+            </button>
+            <% } %>
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+</div>
+<div class="d-flex justify-content-center mt-4">
+  <a id="compare-link" class="btn btn-info btn-lg" href="/compare" style="<% if(compareFacilities.length == 0) { %>visibility: hidden;<% } %>"><%= __('btn.compare') %></a>
+</div>
+<br />
+<div id="toast-container"></div>
+
+
+
+<script>
+  var compareListLength = <%- compareFacilities.length %>;
+  </script>
+  <script>
+  function addCompareFacility(facilityId) {
+  axios.post('/compare/add', {
+    facility: facilityId
+  })
+  .then(response => {
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+      const toast = document.createElement('div');
+      toast.className = 'toast align-items-center text-bg-success border-0';
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+      toast.innerHTML = `
+        <div class="d-flex">
+      <div class="toast-body">
+        <%= __('compare.toast.addSuccess') %>
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      `;
+      toastContainer.appendChild(toast);
+  
+      const bootstrapToast = new bootstrap.Toast(toast);
+      bootstrapToast.show();
+  
+      toast.addEventListener('hidden.bs.toast', () => {
+        toast.remove();
+      });
+    }
+    const button = document.querySelector(`button[onclick="addCompareFacility('${facilityId}')"]`);
+    if (button) {
+      button.textContent = 'Remove from Comparison List';
+      button.setAttribute('onclick', `removeCompareFacility('${facilityId}')`);
+      button.className = "btn btn-outline-danger btn-sm";
+    }
+  
+    compareListLength++;
+  
+    const compareListLink = document.getElementById('compare-link');
+    if (compareListLink) {
+      compareListLink.style.visibility = 'visible';
+    }
+  
+  })
+  .catch(error => {
+    console.error('Error adding facility for comparison:', error);
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+    const toast = document.createElement('div');
+    toast.className = 'toast align-items-center text-bg-danger border-0';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
+    toast.innerHTML = `
+      <div class="d-flex">
+      <div class="toast-body">
+        <%= __('compare.toast.addFailure') %>
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+      </div>
+    `;
+    toastContainer.appendChild(toast);
+  
+    const bootstrapToast = new bootstrap.Toast(toast);
+    bootstrapToast.show();
+  
+    toast.addEventListener('hidden.bs.toast', () => {
+      toast.remove();
+    });
+    }
+  });
+  }
+  
+  function removeCompareFacility(facilityId) {
+  axios.post('/compare/remove', {
+    facility: facilityId
+  })
+  .then(response => {
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+      const toast = document.createElement('div');
+      toast.className = 'toast align-items-center text-bg-success border-0';
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">
+            <%= __('compare.toast.removeSuccess') %>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      `;
+      toastContainer.appendChild(toast);
+  
+      const bootstrapToast = new bootstrap.Toast(toast);
+      bootstrapToast.show();
+  
+      toast.addEventListener('hidden.bs.toast', () => {
+        toast.remove();
+      });
+    }
+  
+    const button = document.querySelector(`button[onclick="removeCompareFacility('${facilityId}')"]`);
+    if (button) {
+      button.textContent = 'Add to Comparison List';
+      button.setAttribute('onclick', `addCompareFacility('${facilityId}')`);
+      button.className = 'btn btn-outline-info btn-sm';
+    }
+  
+    compareListLength--;
+  
+    const compareListLink = document.getElementById('compare-link');
+    if (compareListLength == 0 && compareListLink) {
+      compareListLink.style.visibility = 'hidden';
+    }
+  })
+  .catch(error => {
+    console.error('Error removing facility from comparison list:', error);
+    const toastContainer = document.getElementById('toast-container');
+    if (toastContainer) {
+      const toast = document.createElement('div');
+      toast.className = 'toast align-items-center text-bg-danger border-0';
+      toast.setAttribute('role', 'alert');
+      toast.setAttribute('aria-live', 'assertive');
+      toast.setAttribute('aria-atomic', 'true');
+      toast.innerHTML = `
+        <div class="d-flex">
+          <div class="toast-body">
+            <%= __('compare.toast.removeFailure') %>
+          </div>
+          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      `;
+      toastContainer.appendChild(toast);
+  
+      const bootstrapToast = new bootstrap.Toast(toast);
+      bootstrapToast.show();
+  
+      toast.addEventListener('hidden.bs.toast', () => {
+        toast.remove();
+      });
+    }
+  });
+  }
+  </script>
+
+<%-include('components/footer') %>

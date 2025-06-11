@@ -1,0 +1,61 @@
+<%- include('../components/header', { title: __('admin.survey.title')}) %>
+  <a href="/admin/surveys" class="btn btn-secondary mb-3">&larr; <%= __('admin.survey.back') %></a>
+  <h2 class="mb-4"><%= __('admin.survey.infoTitle') %></h2>
+  <h4><%= __('admin.survey.name') %>: <%= surveyName %></h4>
+  <% if(questions && questions.length > 0) { %>
+    <table class="table">
+      <thead>
+        <th><%= __('admin.survey.column.question') %></th>
+        <th><%= __('admin.survey.column.type') %></th>
+        <th><%= __('admin.survey.column.weight') %></th>
+        <th><%= __('admin.survey.column.transformation') %></th>
+        <th><%= __('admin.survey.column.details') %></th>
+      </thead>
+      <tbody>
+        <% questions.forEach(question => { %>
+          <tr>
+            <td><%= question.text %></td>
+            <td><%= question.textResponse ? __('admin.survey.typeText') : __('admin.survey.typeInteger') %></td>
+            <td><%= question.weight %></td>
+            <td><%= question.transformation %></td>
+            <td><a href="/admin/surveys/questions/<%= question.id %>"><%= __('admin.survey.view') %></a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <nav aria-label="Question pagination">
+      <ul class="pagination justify-content-center">
+        <% if (pageQuestion > 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="?pageQuestion=<%= pageQuestion - 1 %>" aria-label="Previous">
+              &laquo;
+            </a>
+          </li>
+        <% } %>
+        <% for (let i = 1; i <= totalPagesQuestion; i++) { %>
+          <li class="page-item <%= i === pageQuestion ? 'active' : '' %>">
+            <a class="page-link" href="?pageQuestion=<%= i %>"><%= i %></a>
+          </li>
+        <% } %>
+        <% if (pageQuestion < totalPagesQuestion) { %>
+          <li class="page-item">
+            <a class="page-link" href="?pageQuestion=<%= pageQuestion + 1 %>" aria-label="Next">
+              &raquo;
+            </a>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+  <% } else { %>
+    <p><%= __('admin.survey.none') %></p>
+  <% } %>
+
+  <h3 class="mt-5"><%= __('admin.survey.updateTitle') %></h3>
+  <form action="/admin/surveys/<%= surveyId %>/update" method="post">
+    <label for="name" class="form-label"><%= __('admin.survey.form.name') %></label>
+    <input type="text" name="name" id="name" value="<%= surveyName %>" class="form-control">
+    <button type="submit" class="btn btn-primary mt-2">Update</button>
+  </form>
+  <%- include('../components/footer') %>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<%- include('../components/header', { title: __('login.pageTitle')}) %>
+<div class="container">
+  <div class="content-wrapper">
+    <div class="container login-container">
+      <div class="login-card">
+        <h2 class="form-title"><%=__('login.formTitle')%></h2>  
+      <form action="/auth/login" method="POST">
+          <div class="mb-3">
+            <label for="email" class="form-label"><%=__('login.emailLabel')%></label>
+            <input type="email" class="form-control" name="email" id="email" placeholder="<%=__('login.emailPlaceholder')%>" required>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label"><%=__('login.passwordLabel')%></label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="<%=__('login.passwordPlaceholder')%>" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-login"><%=__('login.loginButton')%></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+<%- include('../components/footer') %>
+
+<style>
+    .login-container {
+      max-width: 450px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    
+    .login-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+    }
+    
+    .form-title {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #212529;
+      font-weight: 600;
+    }
+    
+    .btn-login {
+      width: 100%;
+      padding: 0.75rem;
+      font-weight: 500;
+      border-radius: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    
+    .form-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    .form-footer a {
+      color: #0d6efd; /* Primary color from MediTanzania site */
+      text-decoration: none;
+    }
+    
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .error-alert {
+      border-radius: 8px;
+      font-size: 0.9rem;
+      padding: 0.75rem 1rem;
+    }
+    
+    /* Improve mobile friendliness */
+    @media (max-width: 576px) {
+      .login-container {
+        padding: 0 1rem;
+      }
+      
+      .login-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</body>
+</html>

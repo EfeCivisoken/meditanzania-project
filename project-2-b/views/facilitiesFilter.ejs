@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Filter Facilities</title>
+  <style>
+    body { font-family: sans-serif; margin: 2em; }
+    fieldset { margin-bottom: 1em; }
+    ul { list-style: none; padding: 0; }
+    li { margin: .5em 0; }
+  </style>
+</head>
+<body>
+  <h1>Filter Facilities by Type</h1>
+
+  <fieldset>
+    <legend>Select Types</legend>
+    <% facilityTypes.forEach(function(type) { %>
+      <label style="margin-right:1em">
+        <input
+          type="checkbox"
+          name="types"
+          value="<%= type %>"
+        />
+        <%= type %>
+      </label>
+    <% }) %>
+  </fieldset>
+  <button id="applyFilter">Apply Filter</button>
+
+  <h2>Facilities (<span id="count"><%= facilities.length %></span>)</h2>
+  <ul id="facilityList">
+    <% facilities.forEach(function(f) { %>
+      <li>
+        <strong><%= f.name %></strong>
+        (<%= f.type %>) — <%= f.location.name %>
+      </li>
+    <% }) %>
+  </ul>
+
+  <script>
+    // Load in facilities data
+    const data = <%- JSON.stringify(facilities) %>;
+
+    document.getElementById('applyFilter').addEventListener('click', async () => {
+      // Gather checked types
+      const checked = Array.from(
+        document.querySelectorAll('input[name="types"]:checked')
+      ).map(cb => cb.value)
+      
+      // Filter facilities
+      const filtered = data.filter(f => checked.includes(f.type));
+
+      // Re-render list & count
+      const list = document.getElementById('facilityList');
+      list.innerHTML = filtered.map(f =>
+        `<li><strong>${f.name}</strong> (${f.type}) – ${f.location.name}</li>`
+      ).join('');
+      document.getElementById('count').textContent = data.length;
+    });
+  </script>
+</body>
+</html>

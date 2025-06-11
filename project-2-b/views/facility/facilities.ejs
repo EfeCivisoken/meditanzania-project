@@ -1,0 +1,355 @@
+<%- include('../components/header.ejs', { title: __('facilities.pageTitle') }) %>
+<div class="content-wrapper">
+    <div class="container">
+      
+      <!-- Page Header -->
+      <div class="page-header d-flex justify-content-between align-items-center">
+        <h1 class="mb-0"><%=__('facilities.heading')%></h1>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="d-flex align-items-center bg-light p-3 rounded shadow-sm mb-4">
+        <form class="d-flex flex-wrap align-items-center gap-3 w-100">
+          <div class="form-check" style="margin-bottom: 0;">
+            <label class="form-check-label">
+              <strong><%= __('filter.selectType') %>:</strong>
+            </label>
+          </div>
+      
+          <% facilityTypes.forEach(function(type) { %>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" name="types" value="<%= type %>" id="type-<%= type %>">
+              <label class="form-check-label" for="type-<%= type %>"><%= type %></label>
+            </div>
+          <% }); %>
+      
+          <button id="applyFilter" type="button" class="btn btn-primary ms-auto">
+            <%= __('filter.apply') %>
+          </button>
+        </form>
+      </div>
+      
+      <!-- Facilities Table -->
+      <div class="facilities-table">
+        <div class="table-responsive">
+          <table class="table table-hover mb-0">
+            <thead>
+              <tr>
+                <th><%= __('facilities.table.score') %></th>
+                <th><%=__('facilities.table.name')%></th>
+                <th><%=__('facilities.table.type')%></th>
+                <th><%=__('facilities.table.municipality')%></th>
+                <th class="text-end"><%=__('facilities.table.actions')%></th>
+              </tr>
+            </thead>
+            <tbody id="table-body">
+              <% facilities.forEach((facility) => { %>
+                <tr>
+                  <td class="align-middle">
+                    <% const scoreObj = facilitiesWithScores.find(s => s.id === facility.id); %>
+                    <span class="badge <%= scoreObj ? (scoreObj.score >= 3.5 ? 'bg-success' : (scoreObj.score >= 2 ? 'bg-warning' : 'bg-danger')) : 'bg-danger' %> rating-badge" style="font-size: 0.9em; padding: 0.3em 0.6em;">
+                      <%= scoreObj ? scoreObj.score.toFixed(2) : 'E' %> / 5.00
+                    </span>
+                  </td>
+                  <td class="align-middle"><%= facility.name %></td>
+                  <td class="align-middle"><%= facility.type %></td>
+                  <td class="align-middle"><%= facility.location.name %></td>
+                  <td class="text-end">
+                    <a href="facilities/<%= facility.id %>/<% if (userType == 'facility-staff' && userFacility.id == facility.id) { %>staff<% } else { %>citizen<% } %>" 
+                       class="btn btn-sm btn-outline-primary">
+                      <%=__('facilities.viewDetails')%>
+                    </a>
+                    <% if(compareFacilities.includes(`${facility.id}`)) { %>
+                      <button class="btn btn-outline-info btn-sm" onclick="removeCompareFacility('<%= facility.id %>')"><%= __('btn.compareRemove') %></button>
+                    <% } else { %>
+                      <button class="btn btn-outline-info btn-sm" onclick="addCompareFacility('<%= facility.id %>')"><%= __('btn.compareAdd') %></button>
+                    <% } %>
+                  </td>
+                </tr>
+              <% }); %>
+              
+              <% if (facilities.length === 0) { %>
+                <tr>
+                  <td colspan="4" class="text-center py-4"><%=__('facilities.noFacilities')%></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <br>
+
+  <nav aria-label="Search pagination">
+    <ul class="pagination justify-content-center">
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+        </li>
+      <% } else { %>
+        <li class="page-item disabled">
+          <span class="page-link">&laquo; </span>
+        </li>
+      <% } %>
+
+      <% 
+        const range = 1;
+        const pageCount = totalPages;
+        const startPage = Math.max(2, currentPage - range);
+        const endPage = Math.min(pageCount - 1, currentPage + range);
+      %>
+
+      <li class="page-item <%= currentPage === 1 ? 'active' : '' %>">
+        <a class="page-link" href="?page=1">1</a>
+      </li>
+
+      <% if (startPage > 2) { %>
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+      <% } %>
+
+      <% for (let i = startPage; i <= endPage; i++) { %>
+        <li class="page-item <%= i === currentPage ? 'active' : '' %>">
+          <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+        </li>
+      <% } %>
+
+      <% if (endPage < pageCount - 1) { %>
+        <li class="page-item disabled"><span class="page-link">...</span></li>
+      <% } %>
+
+      <% if (pageCount > 1) { %>
+        <li class="page-item <%= currentPage === pageCount ? 'active' : '' %>">
+          <a class="page-link" href="?page=<%= pageCount %>"><%= pageCount %></a>
+        </li>
+      <% } %>
+
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+        </li>
+      <% } else { %>
+        <li class="page-item disabled">
+          <span class="page-link">&raquo;</span>
+        </li>
+      <% } %>
+    </ul>
+  </nav>
+
+      <div class="d-flex justify-content-center mt-4">
+        <a id="compare-link" class="btn btn-info btn-lg" href="/compare" <% if(compareFacilities.length == 0) { %> style="visibility: hidden;" <% } %> ><%= __('btn.compare') %></a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    /**
+     * Add/remove facilities from compare list
+     */
+    var compareListLength = <%= compareFacilities.length %>;
+
+    function addCompareFacility(facilityId) {
+      axios.post('/compare/add', {
+          facility: facilityId
+        })
+        .then(response => {
+          const toastContainer = document.getElementById('toast-container');
+          if (toastContainer) {
+            const toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-bg-success border-0';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            toast.innerHTML = `
+              <div class="d-flex">
+            <div class="toast-body">
+              <%= __('compare.toast.addSuccess') %>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            `;
+            toastContainer.appendChild(toast);
+
+            const bootstrapToast = new bootstrap.Toast(toast);
+            bootstrapToast.show();
+
+            toast.addEventListener('hidden.bs.toast', () => {
+              toast.remove();
+            });
+          }
+          const button = document.querySelector(`button[onclick="addCompareFacility('${facilityId}')"]`);
+          if (button) {
+            button.textContent = '<%= __('btn.compareRemove') %>';
+            button.setAttribute('onclick', `removeCompareFacility('${facilityId}')`);
+          }
+
+          compareListLength++;
+
+          const compareListLink = document.getElementById('compare-link');
+          if (compareListLink) {
+            compareListLink.style.visibility = 'visible';
+          }
+
+        })
+        .catch(error => {
+          console.error('Error adding facility for comparison:', error);
+          const toastContainer = document.getElementById('toast-container');
+          if (toastContainer) {
+          const toast = document.createElement('div');
+          toast.className = 'toast align-items-center text-bg-danger border-0';
+          toast.setAttribute('role', 'alert');
+          toast.setAttribute('aria-live', 'assertive');
+          toast.setAttribute('aria-atomic', 'true');
+          toast.innerHTML = `
+            <div class="d-flex">
+            <div class="toast-body">
+              <%= __('compare.toast.addFailure') %>
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+          `;
+          toastContainer.appendChild(toast);
+
+          const bootstrapToast = new bootstrap.Toast(toast);
+          bootstrapToast.show();
+
+          toast.addEventListener('hidden.bs.toast', () => {
+            toast.remove();
+          });
+          }
+        });
+    }
+
+    function removeCompareFacility(facilityId) {
+      axios.post('/compare/remove', {
+          facility: facilityId
+        })
+        .then(response => {
+          const toastContainer = document.getElementById('toast-container');
+          if (toastContainer) {
+            const toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-bg-success border-0';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            toast.innerHTML = `
+              <div class="d-flex">
+                <div class="toast-body">
+                  <%= __('compare.toast.removeSuccess') %>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            `;
+            toastContainer.appendChild(toast);
+
+            const bootstrapToast = new bootstrap.Toast(toast);
+            bootstrapToast.show();
+
+            toast.addEventListener('hidden.bs.toast', () => {
+              toast.remove();
+            });
+          }
+
+          const button = document.querySelector(`button[onclick="removeCompareFacility('${facilityId}')"]`);
+          if (button) {
+            button.textContent = '<%= __('btn.compareAdd') %>';
+            button.setAttribute('onclick', `addCompareFacility('${facilityId}')`);
+          }
+
+          compareListLength--;
+
+          const compareListLink = document.getElementById('compare-link');
+          if (compareListLength == 0 && compareListLink) {
+            compareListLink.style.visibility = 'hidden';
+          }
+        })
+        .catch(error => {
+          console.error('Error removing facility from comparison list:', error);
+          const toastContainer = document.getElementById('toast-container');
+          if (toastContainer) {
+            const toast = document.createElement('div');
+            toast.className = 'toast align-items-center text-bg-danger border-0';
+            toast.setAttribute('role', 'alert');
+            toast.setAttribute('aria-live', 'assertive');
+            toast.setAttribute('aria-atomic', 'true');
+            toast.innerHTML = `
+              <div class="d-flex">
+                <div class="toast-body">
+                  <%= __('compare.toast.removeFailure') %>
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+            `;
+            toastContainer.appendChild(toast);
+
+            const bootstrapToast = new bootstrap.Toast(toast);
+            bootstrapToast.show();
+
+            toast.addEventListener('hidden.bs.toast', () => {
+              toast.remove();
+            });
+          }
+        });
+    }
+  </script>
+  <script>
+    /**
+     * Filter facilities
+     */
+    // Load in facilities data and other needed data
+    const data = <%- JSON.stringify(facilities) %>;
+    const facilitiesWithScores = <%- JSON.stringify(facilitiesWithScores) %>;
+    const userType = <%- JSON.stringify(userType) %>;
+    const userFacility = <%- JSON.stringify(userFacility) %>;
+    const compareFacilities = <%- JSON.stringify(compareFacilities) %>;
+
+    document.getElementById('applyFilter').addEventListener('click', async () => {
+      // Gather checked types
+      const checked = Array.from(
+        document.querySelectorAll('input[name="types"]:checked')
+      ).map(cb => cb.value)
+      
+      // Filter facilities
+      let filtered = data.filter(f => checked.includes(f.type));
+
+      if(checked.length == 0) {
+        filtered = data;
+      }
+
+      // Re-render list & count
+      const list = document.getElementById('table-body');
+      list.innerHTML = filtered.map(facility => {
+
+        const scoreObj = facilitiesWithScores.find(s => s.id === facility.id);
+        
+        return `
+        <tr>
+          <td class="align-middle">
+            <span class="badge ${ scoreObj ? (scoreObj.score >= 3.5 ? 'bg-success' : (scoreObj.score >= 2 ? 'bg-warning' : 'bg-danger')) : 'bg-danger' } rating-badge" style="font-size: 0.9em; padding: 0.3em 0.6em;">
+                      ${ scoreObj ? scoreObj.score.toFixed(2) : 'E' } / 5.00
+                    </span>
+          </td>
+          <td class="align-middle">${facility.name}</td>
+          <td class="align-middle">${facility.type}</td>
+          <td class="align-middle">${facility.location.name}</td>
+          <td class="text-end">
+            <a href="facilities/${facility.id}" class="btn btn-sm btn-outline-primary">
+              <%=__('facilities.viewDetails')%>
+            </a>
+            ${compareFacilities.includes(`${facility.id}`)
+                ? `<button class="btn btn-outline-info btn-sm" onclick="removeCompareFacility('${facility.id}')"><%= __('btn.compareRemove') %></button>`
+                : `<button class="btn btn-outline-info btn-sm" onclick="addCompareFacility('${facility.id}')"><%= __('btn.compareAdd') %></button>`
+              }
+          </td>
+        </tr>
+        `;
+      }).join('');
+    });
+  </script>
+
+  <%- include('../components/footer') %>
+
+</body>
+
+</html>

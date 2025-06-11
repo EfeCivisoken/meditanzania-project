@@ -1,0 +1,61 @@
+<%- include('../components/header', { title: __('admin.surveyQuestion.title') }) %>
+<div class="container my-4">
+  <a href="/admin/surveys/<%= survey.id %>" class="btn btn-secondary mb-3">&larr; <%= __('admin.surveyQuestion.back') %></a>
+  <h3 class="mb-3 mt-4"><%= __('admin.surveyQuestion.details') %></h3>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><%= __('admin.surveyQuestion.question') %></th>
+        <th><%= __('admin.surveyQuestion.type') %></th>
+        <th><%= __('admin.surveyQuestion.weight') %></th>
+        <th><%= __('admin.surveyQuestion.transformationTitle') %></th>
+        <th><%= __('admin.surveyQuestion.category') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= question.text %></td>
+        <td><%= question.isText ? __('admin.surveyQuestion.typeText') : __('admin.surveyQuestion.typeInteger') %></td>
+        <td><%= question.weight %></td>
+        <td><%= question.transformation %></td>
+        <td><%= question.category ? question.category.name : __('admin.surveyQuestion.defaultCategory') %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3 class="mb-3 mt-4"><%= __('admin.surveyQuestion.updateQuestion') %></h3>
+  <form action="/admin/surveys/questions/<%= question.id %>/update" method="post" class="mb-4">
+    <label for="text" class="form-label"><%= __('admin.surveyQuestion.questionText') %></label>
+    <input type="text" name="text" id="text" value="<%= question.text %>" class="form-control">
+
+    <label for="weight" class="form-label mt-3"><%= __('admin.surveyQuestion.questionWeight') %></label>
+    <input type="number" name="weight" id="weight" value="<%= question.weight %>" class="form-control">
+
+    <label for="transformation" class="form-label mt-3"><%= __('admin.surveyQuestion.transformationLabel') %></label>
+    <select name="transformation" id="transformation" class="form-select">
+      <option value="none" <%= question.transformation == 'none' ? 'selected' : '' %>><%= __('admin.surveyQuestion.transformation.none') %></option>
+      <option value="square" <%= question.transformation == 'square' ? 'selected' : '' %>><%= __('admin.surveyQuestion.transformation.square') %></option>
+      <option value="sqrt" <%= question.transformation == 'sqrt' ? 'selected' : '' %>><%= __('admin.surveyQuestion.transformation.sqrt') %></option>
+      <option value="inverse" <%= question.transformation == 'inverse' ? 'selected' : '' %>><%= __('admin.surveyQuestion.transformation.inverse') %></option>
+    </select>
+
+    <label for="category" class="form-label mt-3"><%= __('admin.surveyQuestion.categoryLabel') %></label>
+    <select name="category" id="category" class="form-select">
+      <% questionCategories.forEach(c => { %>
+        <option value="<%= c.id %>"><%= c.name %></option>
+      <% }); %>
+    </select>
+    <button type="submit" class="btn btn-primary mt-3"><%= __('admin.surveyQuestion.updateButton') %></button>
+  </form>
+  <h3 class="mb-3 mt-4"><%= __('admin.surveyQuestion.createCategory') %></h3>
+  <form action="/admin/surveys/questions/categories/create" class="mb-4">
+    <label for="name" class="form-label"><%= __('admin.surveyQuestion.categoryName') %></label>
+    <input type="text" name="name" id="name" class="form-control">
+    <button type="submit" class="btn btn-primary mt-2"><%= __('admin.surveyQuestion.createButton') %></button>
+  </form>
+</div>
+
+<%- include('../components/footer') %>
+
+</body>
+</html>

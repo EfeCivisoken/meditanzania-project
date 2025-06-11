@@ -1,0 +1,207 @@
+<%- include('components/header', { title: __('about.title') }) %>
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: #f8f9fa;
+    }
+    
+    .content-wrapper {
+      flex: 1;
+      padding: 2rem 0;
+    }
+    
+    .about-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      padding: 2rem;
+      margin-bottom: 2rem;
+    }
+    
+    .team-section {
+      margin-top: 3rem;
+    }
+    
+    .team-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+      height: 100%;
+      transition: transform 0.2s;
+    }
+    
+    .team-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    .mission-card {
+      border-left: 4px solid #0d6efd;
+      background-color: #f8f9fa;
+      padding: 1.5rem;
+      border-radius: 0 8px 8px 0;
+      margin: 2rem 0;
+    }
+    
+    .section-title {
+      color: #0d6efd;
+      margin-bottom: 1.5rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background-color: #0d6efd;
+    }
+    
+    .team-img-placeholder {
+      height: 180px;
+      background-color: #e9ecef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px 8px 0 0;
+    }
+    
+    @media (max-width: 768px) {
+      .about-section {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+
+  <div class="content-wrapper">
+    <div class="container">
+      <div class="about-section">
+        <h1 class="section-title"><%= __('about.pageTitle') %></h1>
+        
+        <p><%= __('about.p1') %></p>
+        
+        <p><%= __('about.p2') %></p>
+        
+        <div class="mission-card">
+          <h3 class="mb-3"><%= __('about.mission') %></h3>
+          <p class="mb-0"><%= __('about.missionP1') %></p>
+        </div>
+        
+        <h3 class="section-title"><%= __('about.vision') %></h3>
+        <p><%= __('about.visionText') %></p>
+        
+        <div class="row mt-4">
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                  <h1 class="display-4 text-primary mb-0">26</h1>
+                </div>
+                <h5 class="card-title"><%= __('about.regions') %></h5>
+                <p class="card-text text-muted"><%= __('about.regionsMuted') %></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                  <h1 class="display-4 text-primary mb-0">9000+</h1>
+                </div>
+                <h5 class="card-title"><%= __('about.facilities') %></h5>
+                <p class="card-text text-muted"><%= __('about.facilitiesMuted') %></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <div class="card">
+              <div class="card-body text-center">
+                <div class="d-flex align-items-center justify-content-center mb-3">
+                  <h1 class="display-4 text-primary mb-0"><%= reviews %></h1>
+                </div>
+                <h5 class="card-title"><%= __('about.reviews') %></h5>
+                <p class="card-text text-muted"><%= __('about.reviewsMuted') %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <h3 class="section-title team-section"><%= __('about.team') %></h3>
+        <div class="row">
+          <div class="col-md-4 mb-4">
+            <div class="team-card">
+              <div class="team-img-placeholder">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Tuna AKIN</h5>
+                <p class="text-muted mb-2"><%= __('about.frontend') %></p>
+                <p class="card-text"><%= __('about.taBio') %></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4 mb-4">
+            <div class="team-card">
+              <div class="team-img-placeholder">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Jackson ESHBAUGH</h5>
+                <p class="text-muted mb-2"><%= __('about.projLead') %> & <%= __('about.backend') %></p>
+                <p class="card-text"><%= __('about.jeBio') %></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <div class="team-card">
+              <div class="team-img-placeholder">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Efe CIVISOKEN</h5>
+                <p class="text-muted mb-2"><%= __('about.backend') %></p>
+                <p class="card-text"><%= __('about.ecBio') %></p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-md-4 mb-4">
+            <div class="team-card">
+              <div class="team-img-placeholder">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="#6c757d" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">Eliso MORAZARA</h5>
+                <p class="text-muted mb-2"><%= __('about.backend') %></p>
+                <p class="card-text"><%= __('about.emBio') %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('components/footer') %>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 375 667">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="#f5f7fa" />
+  
+  <!-- Header Section -->
+  <rect x="0" y="30" width="375" height="60" fill="#4CAF50" />
+  
+  <!-- Back Arrow -->
+  <g transform="translate(20, 60)">
+    <path d="M15 0L0 10L15 20" stroke="white" stroke-width="2" fill="none" />
+  </g>
+  
+  <text x="187.5" y="65" font-family="Arial, sans-serif" font-size="18" fill="white" text-anchor="middle" dominant-baseline="middle">Jurisdiction Reports</text>
+  
+  <!-- Filter Icon -->
+  <g transform="translate(340, 60)">
+    <path d="M0,0 L15,0 M2,7 L13,7 M5,14 L10,14" stroke="white" stroke-width="2" fill="none" />
+  </g>
+
+  <!-- Jurisdiction Overview Card -->
+  <rect x="15" y="105" width="345" height="120" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  
+  <text x="30" y="130" font-family="Arial, sans-serif" font-weight="bold" font-size="20" fill="#333">Dar es Salaam Region</text>
+  
+  <!-- Stats in Overview Card -->
+  <g transform="translate(30, 150)">
+    <rect x="0" y="0" width="90" height="60" rx="5" fill="#f9f9f9" />
+    <text x="45" y="20" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Facilities</text>
+    <text x="45" y="45" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#333" text-anchor="middle">25</text>
+  </g>
+  
+  <g transform="translate(135, 150)">
+    <rect x="0" y="0" width="90" height="60" rx="5" fill="#f9f9f9" />
+    <text x="45" y="20" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Avg Rating</text>
+    <text x="45" y="45" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#333" text-anchor="middle">4.0</text>
+    <text x="45" y="58" font-family="Arial, sans-serif" font-size="10" fill="#888" text-anchor="middle">out of 5</text>
+  </g>
+  
+  <g transform="translate(240, 150)">
+    <rect x="0" y="0" width="90" height="60" rx="5" fill="#f9f9f9" />
+    <text x="45" y="20" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Feedback</text>
+    <text x="45" y="45" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#333" text-anchor="middle">423</text>
+  </g>
+
+  <!-- Subheader for List -->
+  <text x="20" y="250" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="#333">Top Facilities</text>
+  
+  <!-- Sort Dropdown -->
+  <text x="260" y="250" font-family="Arial, sans-serif" font-size="14" fill="#4CAF50">Sort by: Rating</text>
+  <path d="M330,246 l-4,6 l-4,-6" stroke="#4CAF50" stroke-width="1.5" fill="none" />
+  
+  <!-- Facility Cards -->
+  <!-- Facility 1 -->
+  <rect x="15" y="265" width="345" height="100" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  
+  <!-- Star Rating -->
+  <g transform="translate(285, 275)">
+    <rect x="0" y="0" width="60" height="30" rx="15" fill="#4CAF50" />
+    <text x="30" y="20" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" dominant-baseline="middle">4.2</text>
+  </g>
+  
+  <text x="30" y="290" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">Mwananyamala Hospital</text>
+  <text x="30" y="315" font-family="Arial, sans-serif" font-size="14" fill="#666">Kinondoni District</text>
+  
+  <g transform="translate(30, 335)">
+    <path d="M0,0 L10,0 L10,10 L0,10 Z" fill="#4CAF50" opacity="0.2" />
+    <text x="20" y="9" font-family="Arial, sans-serif" font-size="12" fill="#666">Wait Time: 30 mins</text>
+    
+    <path d="M120,0 L130,0 L130,10 L120,10 Z" fill="#4CAF50" opacity="0.2" />
+    <text x="140" y="9" font-family="Arial, sans-serif" font-size="12" fill="#666">Feedback: 126</text>
+  </g>
+  
+  <!-- Facility 2 -->
+  <rect x="15" y="380" width="345" height="100" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  
+  <!-- Star Rating -->
+  <g transform="translate(285, 390)">
+    <rect x="0" y="0" width="60" height="30" rx="15" fill="#FF9800" />
+    <text x="30" y="20" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" dominant-baseline="middle">3.8</text>
+  </g>
+  
+  <text x="30" y="405" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">Amana Hospital</text>
+  <text x="30" y="430" font-family="Arial, sans-serif" font-size="14" fill="#666">Ilala District</text>
+  
+  <g transform="translate(30, 450)">
+    <path d="M0,0 L10,0 L10,10 L0,10 Z" fill="#FF9800" opacity="0.2" />
+    <text x="20" y="9" font-family="Arial, sans-serif" font-size="12" fill="#666">Wait Time: 45 mins</text>
+    
+    <path d="M120,0 L130,0 L130,10 L120,10 Z" fill="#FF9800" opacity="0.2" />
+    <text x="140" y="9" font-family="Arial, sans-serif" font-size="12" fill="#666">Feedback: 98</text>
+  </g>
+  
+  <!-- Facility 3 -->
+  <rect x="15" y="495" width="345" height="100" rx="10" fill="white" filter="drop-shadow(0px 2px 5px rgba(0,0,0,0.1))" />
+  
+  <!-- Star Rating -->
+  <g transform="translate(285, 505)">
+    <rect x="0" y="0" width="60" height="30" rx="15" fill="#4CAF50" />
+    <text x="30" y="20" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle" dominant-baseline="middle">4.1</text>
+  </g>
+  
+  <text x="30" y="520" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#333">Muhimbili Hospital</text>
+  <text x="30" y="545" font-family="Arial, sans-serif" font-size="14" fill="#666">Kinondoni District</text>
+  
+  <g transform="translate(30, 565)">
+    <path d="M0,0 L10,0 L10,10 L0,10 Z" fill="#4CAF50" opacity="0.2" />
+    <text x="20" y="9" font-family="Arial, sans-serif" font-size="12" fill="#666">Wait Time: 52 mins</text>
+    
+    <path d="M120,0 L130,0 L130,10 L120,10 Z" fill="#4CAF50" opacity="0.2" />
+    <text x="140" y="9" font-family="Arial, sans-serif" font-size="12" fill="#666">Feedback: 105</text>
+  </g>
+  
+  <!-- Bottom Navigation -->
+  <rect x="0" y="610" width="375" height="57" fill="white" filter="drop-shadow(0px -2px 5px rgba(0,0,0,0.1))" />
+  
+  <g transform="translate(62.5, 635)">
+    <rect x="-25" y="-15" width="50" height="35" fill="none" />
+    <path d="M0,-5 L-15,10 L-5,10 L-5,15 L5,15 L5,10 L15,10 Z" fill="#888" />
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Home</text>
+  </g>
+  
+  <g transform="translate(187.5, 635)">
+    <rect x="-25" y="-15" width="50" height="35" fill="none" />
+    <path d="M-10,-5 L10,-5 L10,15 L-10,15 Z M-5,0 L5,0 M-5,5 L5,5 M-5,10 L5,10" stroke="#4CAF50" stroke-width="2" fill="none" />
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="12" fill="#4CAF50" text-anchor="middle" font-weight="bold">Reports</text>
+  </g>
+  
+  <g transform="translate(312.5, 635)">
+    <rect x="-25" y="-15" width="50" height="35" fill="none" />
+    <circle cx="0" cy="0" r="8" stroke="#888" stroke-width="2" fill="none" />
+    <path d="M0,8 C-8,8 -8,15 0,15 C8,15 8,8 0,8" stroke="#888" stroke-width="2" fill="none" />
+    <text x="0" y="28" font-family="Arial, sans-serif" font-size="12" fill="#888" text-anchor="middle">Profile</text>
+  </g>
+</svg>

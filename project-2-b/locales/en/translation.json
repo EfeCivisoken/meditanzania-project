@@ -1,0 +1,43 @@
+{
+    "common": {
+      "navbar": {
+        "home": "Home",
+        "facilities": "Facilities",
+        "about": "About",
+        "login": "Log In",
+        "logout": "Log Out",
+        "language": "Language"
+      },
+      "footer": {
+        "copyright": "MediTanzania © 2025 - Improving healthcare through transparency"
+      }
+    },
+    "home": {
+      "welcomeTitle": "Welcome to MediTanzania",
+      "welcomeSubtitle": "Promoting transparency and quality in healthcare facilities across Tanzania",
+      "loginButton": "Log In",
+      "viewFacilitiesButton": "View Facilities",
+      "findFacilities": {
+        "title": "Find Healthcare Facilities",
+        "description": "Search for healthcare facilities in your area and view their quality ratings and services.",
+        "button": "Search Facilities"
+      },
+      "aboutPlatform": {
+        "title": "About Our Platform",
+        "description": "Learn how MediTanzania is working to improve healthcare quality through transparency and accountability.",
+        "button": "Learn More"
+      }
+    },
+    "login": {
+      "pageTitle": "Login",
+      "formTitle": "Log In to MediTanzania",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "name@example.com",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Remember me",
+      "loginButton": "Login",
+      "forgotPassword": "Forgot Password?",
+      "createAccount": "Create Account"
+    }
+  }

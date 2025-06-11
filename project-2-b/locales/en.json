@@ -1,0 +1,521 @@
+{
+	"common": {
+    "region": "Region",
+    "district": "District",
+    "ward": "Ward",
+    "municipality": "Municipality",
+    "score": "Score",
+    "alerts": {
+      "error": "Error!",
+      "success": "Success!"
+    },
+    "navbar": {
+      "home": "Home",
+      "facilities": "Facilities",
+      "about": "About",
+      "login": "Log In",
+      "logout": "Log Out",
+      "topn": "Quick Report",
+      "language": "Language",
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "footer": {
+      "copyright": "&copy; 2025 MediTanzania &bull; Improving healthcare through transparency"
+    }
+  },
+	"dashboard": {
+    "admin": {
+      "title": "Administrator Dashboard",
+      "adminPanel": "Go to Admin Panel",
+      "welcomeMessage": "Welcome to MediTanzania! Use the admin panel to manage users, facilities, and system settings."
+    },
+    "government": {
+      "title": "Government Official Dashboard",
+      "anomaly": "Anomaly Dashboard",
+      "welcomeMessage": "Welcome to MediTanzania! Below, you'll find statistics about your jurisdiction.",
+      "noJurisdictionTitle": "No Jurisdiction",
+      "noJurisdictionDesc": "You currently don't have a jurisdiction set. If this is wrong, contact an administrator.",
+      "anomalyTable": {
+        "score": "Score",
+        "name": "Facility Name",
+        "action": "Action",
+        "empty": "Currently, no facilities are flagged."
+      },
+      "jurisdictionAvg": "Jurisdiction Average",
+      "overallAvg": "Overall Average",
+      "anomalyDesc": "Below are facilities that have been flagged by our algorithms as irregular.",
+      "scoreTrends": "Jurisdiction Average Score vs. Overall Average Score"
+    },
+    "public": {
+      "title": "Public Official Dashboard",
+      "anomaly": "Anomaly Dashboard",
+      "anomalyTable": {
+        "score": "Score",
+        "name": "Facility Name",
+        "action": "Action",
+        "empty": "Currently, no facilities are flagged."
+      },
+      "welcomeMessage": "Welcome to MediTanzania! Below, you'll find statistics about your jurisdiction.",
+      "noJurisdictionTitle": "No Jurisdiction",
+      "noJurisdictionDesc": "You currently don't have a jurisdiction set. If this is wrong, contact an administrator.",
+      "jurisdictionAvg": "Jurisdiction Average",
+      "overallAvg": "Overall Average",
+      "anomalyDesc": "Below are facilities that have been flagged by our algorithms as irregular.",
+      "scoreTrends": "Jurisdiction Average Score vs. Overall Average Score"
+    },
+    "facility": {
+      "title": "Facility Staff Dashboard",
+      "summary": "Summary",
+      "averageRating": "Average Rating:",
+      "totalReviews": "Total Reviews:",
+      "surveyResponses": "Survey Responses",
+      "overallRating": "Overall Rating:",
+      "noResponses": "No survey responses available.",
+      "noDetails": "No detailed responses available."
+    }
+  },
+	"home": {
+    "welcomeTitle": "Welcome to MediTanzania",
+    "welcomeSubtitle": "Improving healthcare in Tanzania through transparency and community feedback.",
+    "loginButton": "Log In",
+    "viewFacilitiesButton": "View Facilities",
+    "findFacilities": {
+      "title": "Find Healthcare Facilities",
+      "description": "Browse and search for healthcare facilities across Tanzania.",
+      "button": "Explore Facilities"
+    },
+    "aboutPlatform": {
+      "title": "About the Platform",
+      "description": "Learn how MediTanzania is improving healthcare access and quality.",
+      "button": "Learn More"
+    },
+    "facilitiesMap": {
+      "title": "Healthcare Facilities Map",
+      "description": "Explore healthcare facilities across Tanzania. Click on markers to see details.",
+      "placeholder": "Interactive map will load here",
+      "viewAllButton": "View All Facilities",
+      "viewFacilityButton": "View Facility",
+      "legend": {
+        "high": "High Score",
+        "medium": "Medium Score",
+        "low": "Low Score"
+      }
+    },
+    "recentUpdates": {
+      "title": "Recent Updates",
+      "description": "Stay informed about the latest improvements in healthcare facilities.",
+      "viewAllButton": "View All Updates",
+      "update1": {
+        "title": "New Survey System Launched",
+        "date": "April 15, 2025",
+        "description": "We've improved our survey system to make it easier for citizens to provide feedback on their healthcare experiences."
+      },
+      "update2": {
+        "title": "10 New Facilities Added",
+        "date": "April 8, 2025",
+        "description": "MediTanzania now tracks 10 additional healthcare facilities in the Dodoma region."
+      },
+      "update3": {
+        "title": "Facility Improvement Program",
+        "date": "March 30, 2025",
+        "description": "The Ministry of Health has launched a new program to improve facilities based on citizen feedback."
+      }
+    },
+    "successStories": {
+      "title": "Success Stories",
+      "description": "Read how community feedback has helped improve healthcare services.",
+      "readMoreButton": "Read More Stories",
+      "story1": {
+        "content": "After multiple reports about long waiting times, our local clinic implemented a new appointment system. Now I can see a doctor within 30 minutes of arrival!",
+        "author": "Maria Joseph",
+        "location": "Dar es Salaam Community Clinic"
+      },
+      "story2": {
+        "content": "Thanks to feedback collected through MediTanzania, our rural health center received funding for essential medical equipment. This has dramatically improved care quality.",
+        "author": "Dr. Emmanuel Mwangi",
+        "location": "Moshi Rural Health Center"
+      }
+    }
+  },
+    "login": {
+      "pageTitle": "Login",
+      "formTitle": "Sign in to your account",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "Enter your email",
+      "passwordLabel": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "rememberMe": "Remember me",
+      "loginButton": "Sign In",
+      "forgotPassword": "Forgot password?",
+      "createAccount": "Create an account"
+    },
+      "facilities": {
+        "pageTitle": "Facilities List",
+        "heading": "Healthcare Facilities",
+        "table": {
+          "name": "Facility Name",
+          "type": "Type",
+          "municipality": "Municipality",
+          "actions": "Actions",
+          "score": "Score"
+        },
+        "viewDetails": "View Details",
+        "noFacilities": "No facilities found."
+      },
+      "recentUpdates": {
+        "title": "Recent Updates",
+        "description": "Stay informed about the latest improvements in healthcare facilities.",
+        "viewAllButton": "View All Updates",
+        "update1": {
+          "title": "New Survey System Launched",
+          "date": "April 15, 2025",
+          "description": "We've improved our survey system to make it easier for citizens to provide feedback on their healthcare experiences."
+        },
+        "update2": {
+          "title": "10 New Facilities Added",
+          "date": "April 8, 2025",
+          "description": "MediTanzania now tracks 10 additional healthcare facilities in the Dodoma region."
+        },
+        "update3": {
+          "title": "Facility Improvement Program",
+          "date": "March 30, 2025",
+          "description": "The Ministry of Health has launched a new program to improve facilities based on citizen feedback."
+        }
+      },
+      "successStories": {
+        "title": "Success Stories",
+        "description": "Read how community feedback has helped improve healthcare services.",
+        "readMoreButton": "Read More Stories",
+        "story1": {
+          "content": "After multiple reports about long waiting times, our local clinic implemented a new appointment system. Now I can see a doctor within 30 minutes of arrival!",
+          "author": "Maria Joseph",
+          "location": "Dar es Salaam Community Clinic"
+        },
+        "story2": {
+          "content": "Thanks to feedback collected through MediTanzania, our rural health center received funding for essential medical equipment. This has dramatically improved care quality.",
+          "author": "Dr. Emmanuel Mwangi",
+          "location": "Moshi Rural Health Center"
+        }
+      },
+      "viewFacility": {
+        "pageTitle": "View Facility",
+        "updates": "Updates",
+        "noUpdatesYet": "No updates have been posted yet.",
+        "catTrends": "Category Trends",
+        "totRevs": "Total Reviews",
+        "municipality": "Municipality",
+        "postUpdate": "Post an Update",
+        "updatePlaceholder": "Enter your update here",
+        "postUpdateBtn": "Submit Update",
+        "scoreGraphLabel": "Facility Score",
+        "munScoreGraphLabel": "Municipality Average Score vs. Overall Average Score",
+        "jurisdictionAvg": "Municipality Average",
+        "overallAvg": "Overall Average",
+        "monthLabel": "Month",
+        "scoreLabel": "Score"
+      },
+      "btn": {
+        "download": "Download PDF",
+        "back": "Back",
+        "compare": "Compare",
+        "compareRemove": "Remove from Comparison List",
+        "remove": "Remove",
+        "compareAdd": "Add to Comparison List",
+        "viewFacility": "View this Facility",
+        "logOut": "Log Out"
+      },
+      "compare": {
+        "title": "Compare Facilities",
+        "toast": {
+          "addSuccess": "Facility added to comparison list successfully!",
+          "addFailure": "Failed to add facility for comparison.",
+          "removeSuccess": "Facility removed from comparison list successfully!",
+          "removeFailure": "Failed to remove facility from comparison list."
+        }
+      },
+      "search": {
+        "title": "Search Facilities",
+        "noResults": "We couldn't find any facilities matching your query.",
+        "query": "Query",
+        "location": "Location",
+        "noLoc": "None Provided"
+      },
+      "searchBar": {
+        "facilityName": "Name",
+        "facilityNamePlaceholder": "Enter Facility Name",
+        "facilityLocation": "Location",
+        "none": "(none)",
+        "region": "(region)",
+        "district": "(district)",
+        "ward": "(ward)",
+        "municipality": "(municipality)",
+        "category": "Category",
+        "btnSearch": "Search",
+        "collapseLabel": "Search"
+      },
+      "filter": {
+        "selectType": "Select Facility Types",
+        "apply": "Apply Filter"
+      },
+      "updatePass": {
+        "action": "Change my password",
+        "title": "Update Password",
+        "currentPw": "Current Password",
+        "newPw": "New Password",
+        "btn": "Update Password"
+      },
+      "admin": {
+        "common": {
+          "none": "None"
+        },
+        "index": {
+          "title": "Administration Panel",
+          "welcome": "Welcome",
+          "users": "Manage Users",
+          "facilities": "Manage Facilities",
+          "surveys": "Manage Surveys",
+          "responses": "Upload Responses",
+          "locations": "Manage Locations",
+          "back": "Back"
+        },
+        "users": {
+          "title": "Users",
+          "back": "Back to Admin Panel",
+          "name": "Name",
+          "email": "Email",
+          "type": "User Type",
+          "details": "Details",
+          "createUser": "Create New User",
+          "password": "Password",
+          "typeAdmin": "Admin",
+          "typeGovernmentOfficial": "Government Official",
+          "typePublicOfficial": "Public Official",
+          "typeFacilityStaff": "Facility Staff",
+          "facility": "Facility",
+          "createUserButton": "Create User"
+        },
+        "user": {
+          "title": "User Management",
+          "backToUserList": "Back to User List",
+          "userInformation": "User Information",
+          "name": "Name",
+          "email": "Email",
+          "password": "Password",
+          "type": "Type",
+          "facility": "Facility",
+          "jurisdiction": "Jurisdiction",
+          "updateUser": "Update User",
+          "updateUserButton": "Update User",
+          "deleteUserButton": "Delete User",
+          "setJurisdiction": "Set Jurisdiction",
+          "setRegion": "Set Region",
+          "setDistrict": "Set District",
+          "setWard": "Set Ward",
+          "setMunicipality": "Set Municipality",
+          "setJurisdictionButton": "Set",
+          "errorInvalidUserId": "Invalid User ID",
+          "errorUserNotFound": "The specified user could not be found."
+        },
+        "facilities": {
+          "title": "Manage Facilities",
+          "back": "Back to Admin Panel",
+          "name": "Facility Name",
+          "score": "Score",
+          "type": "Type",
+          "municipality": "Municipality",
+          "details": "Details",
+          "updateScores": "Update Facility Scores",
+          "createFacility": "Create a New Facility",
+          "commonName": "Common Name",
+          "phone": "Phone Number",
+          "address": "Address",
+          "email": "Email",
+          "website": "Website",
+          "longitude": "Longitude",
+          "latitude": "Latitude",
+          "location": "Location",
+          "selectMunicipality": "Select a Municipality",
+          "createFacilityButton": "Create Facility"
+        },
+        "facility": {
+          "title": "Facility Management",
+          "back": "Back to Facilities",
+          "info": "Facility Information",
+          "score": "Score",
+          "name": "Name",
+          "commonName": "Common Name",
+          "type": "Type",
+          "phoneNumber": "Phone Number",
+          "status": "Status",
+          "address": "Address",
+          "email": "Email",
+          "website": "Website",
+          "longitude": "Longitude",
+          "latitude": "Latitude",
+          "municipality": "Municipality",
+          "update": "Update Facility",
+          "updateButton": "Update",
+          "deactivateLink": "Deactivate this facility",
+          "activateLink": "Reactivate this facility",
+          "errorTitle": "Facility Not Found",
+          "errorMessage": "The requested facility does not exist or could not be retrieved."
+        },
+        "surveys": {
+          "title": "Survey Management",
+          "back": "Back to Admin Panel",
+          "name": "Survey Name",
+          "details": "View Details",
+          "none": "No surveys have been created yet.",
+          "createTitle": "Create a New Survey",
+          "csvLayoutTitle": "Expected CSV Format:",
+          "column": {
+            "question": "Question",
+            "type": "Type (text or integer)",
+            "weight": "Weight",
+            "transformation": "Transformation",
+            "category": "Category"
+          },
+          "exampleQuestion1": "How clean was the facility?",
+          "exampleQuestion2": "Describe any mistreatment.",
+          "defaultCategoryNote": "(default category)",
+          "columnBreakdownTitle": "Column Descriptions:",
+          "columnDescriptions": {
+            "question": "Question: the question text",
+            "type": "Type: either 'text' or 'integer'",
+            "weight": "Weight: numeric value representing importance",
+            "transformation": "Transformation: one of square, sqrt, inverse, or none"
+          },
+          "transformation": {
+            "square": "`square`: squares the value to emphasize higher scores",
+            "sqrt": "`sqrt`: square root to downplay high values",
+            "inverse": "`inverse`: takes 1/x, penalizing large values",
+            "none": "`none`: raw score is used directly"
+          },
+          "uploadPrompt": "Upload your survey CSV below:",
+          "form": {
+            "name": "Survey Name",
+            "csv": "CSV File",
+            "create": "Create Survey"
+          }
+        },
+        "survey": {
+          "title": "Survey Details",
+          "back": "Back to Surveys",
+          "infoTitle": "Survey Information",
+          "name": "Name",
+          "column": {
+            "question": "Question",
+            "type": "Type",
+            "weight": "Weight",
+            "transformation": "Transformation",
+            "details": "Details"
+          },
+          "typeText": "Text",
+          "typeInteger": "Integer",
+          "view": "View Question",
+          "none": "No questions currently added.",
+          "updateTitle": "Update Name",
+          "form": {
+            "name": "Survey Name"
+          }
+        },
+        "surveyQuestion": {
+          "title": "Survey Question",
+          "back": "Back",
+          "details": "Question Details",
+          "question": "Question",
+          "type": "Type",
+          "weight": "Weight",
+          "transformationTitle": "Transformation",
+          "category": "Category",
+          "typeText": "Text",
+          "typeInteger": "Integer",
+          "defaultCategory": "Default",
+          "createCategory": "Create Category",
+          "categoryName": "Name",
+          "createButton": "Create",
+          "updateQuestion": "Update Question",
+          "questionText": "Question Text",
+          "questionWeight": "Question Weight",
+          "transformationLabel": "Question Transformation Function",
+          "categoryLabel": "Category",
+          "transformation": {
+            "none": "None",
+            "square": "Square (x²)",
+            "sqrt": "Square Root (√x)",
+            "inverse": "Inverse (1/x)"
+          },
+          "updateButton": "Update"
+        },
+        "responses": {
+          "title": "Upload Survey Responses",
+          "back": "Back to Admin Dashboard",
+          "surveyLabel": "Select Survey",
+          "csvLabel": "Upload CSV File",
+          "submitButton": "Upload Responses"
+        },
+        "locations": {
+          "title": "Manage Locations",
+          "back": "Back to Admin Dashboard",
+          "regions": "Regions",
+          "districts": "Districts",
+          "wards": "Wards",
+          "municipalities": "Municipalities",
+
+          "name": "Name",
+          "createdAt": "Created At",
+          "edit": "Edit",
+          "delete": "Delete",
+          "actions": "Actions",
+          "update": "Update",
+
+          "addRegion": "Add Region",
+          "addDistrict": "Add District",
+          "addWard": "Add Ward",
+          "addMunicipality": "Add Municipality",
+
+          "regionNamePlaceholder": "Region name...",
+          "districtNamePlaceholder": "District name...",
+          "wardNamePlaceholder": "Ward name...",
+          "municipalityNamePlaceholder": "Municipality name...",
+
+          "noRegions": "No regions available.",
+          "noDistricts": "No districts available.",
+          "noWards": "No wards available.",
+          "noMunicipalities": "No municipalities available."
+        }
+      },
+      "about": {
+        "title": "About",
+        "pageTitle": "About MediTanzania",
+        "p1": "MediTanzania is Tanzania's leading healthcare transparency platform, providing up-to-date information on public and private healthcare facilities across the country.",
+        "p2": "Our platform empowers citizens with reliable data and reviews to make informed decisions and fosters accountability within the healthcare system.",
+        "mission": "Our Mission",
+        "missionP1": "To empower Tanzanians by increasing transparency and accessibility of healthcare information, helping them find the right care when they need it.",
+        "vision": "Our Vision",
+        "visionText": "To create a healthier Tanzania through data-driven insights, community engagement, and continuous improvement in healthcare delivery.",
+        "regions": "Regions",
+        "regionsMuted": "all regions of Tanzania covered",
+        "facilities": "Healthcare Facilities",
+        "facilitiesMuted": "from hospitals to clinics",
+        "reviews": "Citizen Reviews",
+        "reviewsMuted": "Improving healthcare transparency",
+        "team": "Our Team",
+        "frontend": "Front-End Developer",
+        "backend": "Back-End Developer",
+        "projLead": "Project Director",
+        "taBio": "Leads user interface design and frontend development to ensure an intuitive and responsive user experience.",
+        "jeBio": "Oversees project delivery and develops robust server-side APIs and database integrations.",
+        "ecBio": "Implements core backend services and ensures system scalability and performance.",
+        "emBio": "Coordinates operations and contributes to backend development to streamline workflows."
+
+      },
+      "topn": {
+        "title": "Quick Report",
+        "all": "All Facilities",
+        "best": "Top Performing Facilities",
+        "worst": "Lowest Performing Facilities",
+        "btnApply": "Apply Filter"
+      }
+}

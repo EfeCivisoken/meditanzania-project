@@ -1,0 +1,98 @@
+<%- include('../components/header', { title: facility.name }) %>
+
+  <div class="content-wrapper">
+    <a class="btn btn-secondary" href="/facilities"><%= __('btn.back') %></a>
+    <%- include('../components/download-button', {style: 'float: right;'}); %>
+    <div id="downloadable">
+      <!-- Page Header -->
+      <div class="page-header d-flex justify-content-between align-items-center">
+        <h1 class="mb-0">
+            <span class="badge bg-<%= (scores && scores.length > 0 ? (scores[scores.length - 1].score >= 3.5 ? 'success' : scores[scores.length - 1].score >= 2 ? 'warning' : 'danger') : 'danger') %>" style="font-size: 0.9em; padding: 0.3em 0.6em;">
+              <%= (scores && scores.length > 0 ? scores[scores.length - 1].score : 0.00) %> / 5.00
+            </span>
+          <%= facility.name %>
+        </h1>
+      </div>
+      <div class="facility-meta d-flex flex-wrap gap-3 my-3">
+        <div class="meta-item">
+          <strong><%= __('viewFacility.municipality') %>:</strong> <%= facility.location.name %>
+        </div>
+        <div class="meta-item">
+          <strong><%= __('viewFacility.totRevs') %>:</strong> <%= summary.totalReviews %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 my-3 h-100">
+          <h3><%= __('viewFacility.scoreGraphLabel') %></h3>
+          <%- include('../components/facility-score-graph'); %>
+        </div>
+        <!-- START: Overall vs. Jurisdiction Score Trends -->
+        <div class="col-md-6 my-3 h-100">
+          <h3><%= __('viewFacility.munScoreGraphLabel') %></h3>
+          <%- include('../components/overall-avg-jur-avg', {
+            jurisdictionName: __('viewFacility.jurisdictionAvg'),
+            overallName: __('viewFacility.overallAvg')
+          }) %>
+        </div>
+        <!-- END: Overall vs. Jurisdiction Score Trends -->
+      </div>
+
+      <h2><%= __('viewFacility.updates') %></h2>
+      <% if (facility.posts && facility.posts.length > 0) { %>
+        <ul class="list-group mb-4">
+          <% facility.posts.forEach(function(post) { %>
+            <li class="list-group-item">
+              <strong><%= post.user.name %>:</strong> <%= post.content %><br>
+              <small class="text-muted"><%= new Date(post.createdAt).toLocaleString() %></small>
+            </li>
+          <% }); %>
+        </ul>
+      <% } else { %>
+        <p><%= __('viewFacility.noUpdatesYet') %></p>
+      <% } %>
+
+      <h2><%= __('viewFacility.catTrends') %></h2>
+      <div class="row">
+        <% groupedScores.forEach((group, i) => { %>
+          <div class="col-md-6 my-3">
+            <h5><%= group.category %></h5>
+            <canvas id="chart-<%= i %>" height="200"></canvas>
+          </div>
+        <% }); %>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const groupedScores = <%- JSON.stringify(groupedScores) %>;
+
+    groupedScores.forEach((group, i) => {
+      const ctx = document.getElementById(`chart-${i}`).getContext('2d');
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: group.data.map(d => new Date(d.createdAt).toLocaleDateString()),
+          datasets: [{
+            label: group.category,
+            data: group.data.map(d => d.score),
+            fill: false,
+            borderWidth: 2,
+            tension: 0.3
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              suggestedMin: 0,
+              suggestedMax: 5
+            }
+          }
+        }
+      });
+    });
+  </script>
+  <%- include('../components/footer') %>
+</body>
+
+</html>

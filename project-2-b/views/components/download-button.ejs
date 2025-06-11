@@ -1,0 +1,35 @@
+<% const styles = typeof style !== 'undefined' ? style : '' %>
+
+<button class="btn btn-primary" id="download" style="<%= styles %>"><%= __('btn.download') %></button>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+  window.jsPDF = window.jspdf.jsPDF;
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+<script>
+  const btn = document.getElementById("download");
+  btn.addEventListener("click", async function () {
+    const element = document.getElementById("downloadable");
+
+    const canvas = await html2canvas(element, { scale: 2, useCORS: true });
+    const imgData = canvas.toDataURL('image/jpeg', 1.0);
+
+    const pdfWidth = canvas.width;
+    const pdfHeight = canvas.height;
+
+    const pdf = new jsPDF({
+      orientation: (pdfWidth > pdfHeight) ? 'landscape' : 'portrait',
+      unit: 'px',
+      format: [pdfWidth, pdfHeight]
+    });
+
+    pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+
+    pdf.save('Report from MediTanzania.pdf');
+  });
+</script>

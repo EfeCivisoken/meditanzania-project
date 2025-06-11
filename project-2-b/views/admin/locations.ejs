@@ -1,0 +1,477 @@
+<%- include('../components/header', { title: __('admin.locations.title') }) %>
+<div class="container my-4">
+  <a href="/admin" class="btn btn-secondary mb-3">&larr; <%= __('admin.locations.back') %></a>
+  <h2 class="text-center mb-4"><%= __('admin.locations.title') %></h2>
+
+  <ul class="nav nav-tabs" id="locationTabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="regions-tab" data-bs-toggle="tab" data-bs-target="#regions" type="button" role="tab" aria-controls="regions" aria-selected="true">
+        <%= __('admin.locations.regions') %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="districts-tab" data-bs-toggle="tab" data-bs-target="#districts" type="button" role="tab" aria-controls="districts" aria-selected="false">
+        <%= __('admin.locations.districts') %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="wards-tab" data-bs-toggle="tab" data-bs-target="#wards" type="button" role="tab" aria-controls="wards" aria-selected="false">
+        <%= __('admin.locations.wards') %>
+      </button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="municipalities-tab" data-bs-toggle="tab" data-bs-target="#municipalities" type="button" role="tab" aria-controls="municipalities" aria-selected="false">
+        <%= __('admin.locations.municipalities') %>
+      </button>
+    </li>
+  </ul>
+
+  <div class="tab-content mt-4">
+    <div class="tab-pane fade show active" id="regions" role="tabpanel" aria-labelledby="regions-tab">
+      <div class="card p-3 mb-4">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <form action="/admin/locations/regions/create" method="POST">
+                  <th colspan="3">
+                    <div class="input-group">
+                      <label for="regionName" class="form-label visually-hidden"><%= __('admin.locations.regionNamePlaceholder') %></label>
+                      <input type="text" class="form-control" id="regionName" name="name" placeholder="<%= __('admin.locations.regionNamePlaceholder') %>" required>
+                      <button type="submit" class="btn btn-primary btn-sm"><%= __('admin.locations.addRegion') %></button>
+                    </div>
+                  </th>
+                </form>
+              </tr>
+              <tr>
+                <th scope="col"><%= __('admin.locations.name') %></th>
+                <th scope="col"><%= __('admin.locations.createdAt') %></th>
+                <th scope="col"><%= __('admin.locations.edit') %></th>
+                <th scope="col"><%= __('admin.locations.delete') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (regions && regions.length > 0) { %>
+                <% regions.forEach(function(region) { %>
+                  <tr>
+                    <td><%= region.name %></td>
+                    <td><%= region.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <form action="/admin/locations/regions/<%= region.id %>/update">
+                        <label for="regionNameUpdate<%= region.id %>" class="form-label visually-hidden"><%= __('admin.locations.name') %></label>
+                        <input class="form-control" id="regionNameUpdate<%= region.id %>" type="text" name="name" value="<%= region.name %>">
+                        <button type="submit" class="btn btn-info btn-sm" aria-label="<%= __('admin.locations.update') %>">
+                          <i class="bi bi-pencil-square"></i><span class="visually-hidden"><%= __('admin.locations.update') %></span>
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <a href="/admin/locations/region/<%= region.id %>/delete" class="btn btn-danger btn-sm" aria-label="<%= __('admin.locations.delete') %>">
+                        <i class="bi bi-trash"></i><span class="visually-hidden"><%= __('admin.locations.delete') %></span>
+                      </a>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center"><%= __('admin.locations.noRegions') %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <nav>
+          <ul class="pagination justify-content-center">
+            <%
+              const currentRegions = pagination.regions.current;
+              const totalRegions = pagination.regions.total;
+              const rangeRegions = [];
+              if (totalRegions <= 7) {
+                for (let i = 1; i <= totalRegions; i++) rangeRegions.push(i);
+              } else {
+                rangeRegions.push(1);
+                if (currentRegions > 4) rangeRegions.push('...');
+                for (let i = Math.max(2, currentRegions - 2); i <= Math.min(totalRegions - 1, currentRegions + 2); i++) {
+                  rangeRegions.push(i);
+                }
+                if (currentRegions < totalRegions - 3) rangeRegions.push('...');
+                rangeRegions.push(totalRegions);
+              }
+            %>
+            <% if (currentRegions > 1) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=r&pageRegions=<%= currentRegions - 1 %>">&laquo;</a>
+              </li>
+            <% } %>
+            <% rangeRegions.forEach(i => { %>
+              <% if (i === '...') { %>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+              <% } else { %>
+                <li class="page-item <%= i === currentRegions ? 'active' : '' %>">
+                  <a class="page-link" href="?tab=r&pageRegions=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+            <% }); %>
+            <% if (currentRegions < totalRegions) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=r&pageRegions=<%= currentRegions + 1 %>">&raquo;</a>
+              </li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="districts" role="tabpanel" aria-labelledby="districts-tab">
+      <div class="card p-3 mb-4">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <form action="/admin/locations/districts/create" method="POST">
+                  <th colspan="3">
+                    <div class="input-group">
+                      <label for="districtName" class="form-label visually-hidden"><%= __('admin.locations.districtNamePlaceholder') %></label>
+                      <input type="text" class="form-control" id="districtName" name="name" placeholder="<%= __('admin.locations.districtNamePlaceholder') %>" required>
+                    </div>
+                    <label for="districtRegion" class="form-label visually-hidden"><%= __('admin.locations.selectRegion') %></label>
+                    <select class="form-select mt-2" name="region" id="districtRegion" required>
+                      <% regions.forEach(function(region) { %>
+                        <option value="<%= region.id %>"><%= region.name %></option>
+                      <% }); %>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2"><%= __('admin.locations.addDistrict') %></button>
+                  </th>
+                </form>
+              </tr>
+              <tr>
+                <th scope="col"><%= __('admin.locations.name') %></th>
+                <th scope="col"><%= __('admin.locations.createdAt') %></th>
+                <th scope="col"><%= __('admin.locations.edit') %></th>
+                <th scope="col"><%= __('admin.locations.delete') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (districts && districts.length > 0) { %>
+                <% districts.forEach(function(district) { %>
+                  <tr>
+                    <td><%= district.name %></td>
+                    <td><%= district.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <form action="/admin/locations/districts/<%= district.id %>/update">
+                        <label for="districtNameUpdate<%= district.id %>" class="form-label visually-hidden"><%= __('admin.locations.name') %></label>
+                        <input class="form-control mb-2" id="districtNameUpdate<%= district.id %>" type="text" name="name" value="<%= district.name %>">
+
+                        <label for="regionSelect<%= district.id %>" class="form-label visually-hidden"><%= __('admin.locations.regions') %></label>
+                        <select class="form-select mb-2" name="region" id="regionSelect<%= district.id %>">
+                          <% regions.forEach(r => { %>
+                            <option value="<%= r.id %>" <% district.regionId == r.id ? 'selected' : '' %>><%= r.name %></option>
+                          <% }) %>
+                        </select>
+
+                        <button type="submit" class="btn btn-info btn-sm" aria-label="<%= __('admin.locations.update') %>">
+                          <i class="bi bi-pencil-square"></i><span class="visually-hidden"><%= __('admin.locations.update') %></span>
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <a href="/admin/locations/districts/<%= district.id %>/delete" class="btn btn-danger btn-sm" aria-label="<%= __('admin.locations.delete') %>">
+                        <i class="bi bi-trash"></i><span class="visually-hidden"><%= __('admin.locations.delete') %></span>
+                      </a>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center"><%= __('admin.locations.noDistricts') %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <nav>
+          <ul class="pagination justify-content-center">
+            <%
+              const currentDistricts = pagination.districts.current;
+              const totalDistricts = pagination.districts.total;
+              const rangeDistricts = [];
+              if (totalDistricts <= 7) {
+                for (let i = 1; i <= totalDistricts; i++) rangeDistricts.push(i);
+              } else {
+                rangeDistricts.push(1);
+                if (currentDistricts > 4) rangeDistricts.push('...');
+                for (let i = Math.max(2, currentDistricts - 2); i <= Math.min(totalDistricts - 1, currentDistricts + 2); i++) {
+                  rangeDistricts.push(i);
+                }
+                if (currentDistricts < totalDistricts - 3) rangeDistricts.push('...');
+                rangeDistricts.push(totalDistricts);
+              }
+            %>
+            <% if (currentDistricts > 1) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=d&pageDistricts=<%= currentDistricts - 1 %>">&laquo;</a>
+              </li>
+            <% } %>
+            <% rangeDistricts.forEach(i => { %>
+              <% if (i === '...') { %>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+              <% } else { %>
+                <li class="page-item <%= i === currentDistricts ? 'active' : '' %>">
+                  <a class="page-link" href="?tab=d&pageDistricts=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+            <% }); %>
+            <% if (currentDistricts < totalDistricts) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=d&pageDistricts=<%= currentDistricts + 1 %>">&raquo;</a>
+              </li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="wards" role="tabpanel" aria-labelledby="wards-tab">
+      <div class="card p-3 mb-4">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <form action="/admin/locations/wards/create" method="POST">
+                  <th colspan="3">
+                    <div class="input-group">
+                      <label for="wardName" class="form-label visually-hidden"><%= __('admin.locations.wardNamePlaceholder') %></label>
+                      <input type="text" class="form-control" id="wardName" name="name" placeholder="<%= __('admin.locations.wardNamePlaceholder') %>" required>
+                    </div>
+                    <label for="wardDistrict" class="form-label visually-hidden"><%= __('admin.locations.selectDistrict') %></label>
+                    <select class="form-select mt-2" name="district" id="wardDistrict" required>
+                      <% districts.forEach(function(district) { %>
+                        <option value="<%= district.id %>"><%= district.name %></option>
+                      <% }); %>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2"><%= __('admin.locations.addWard') %></button>
+                  </th>
+                </form>
+              </tr>
+              <tr>
+                <th scope="col"><%= __('admin.locations.name') %></th>
+                <th scope="col"><%= __('admin.locations.createdAt') %></th>
+                <th scope="col"><%= __('admin.locations.edit') %></th>
+                <th scope="col"><%= __('admin.locations.delete') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (wards && wards.length > 0) { %>
+                <% wards.forEach(function(ward) { %>
+                  <tr>
+                    <td><%= ward.name %></td>
+                    <td><%= ward.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <form action="/admin/locations/wards/<%= ward.id %>/update">
+                        <label for="wardNameUpdate<%= ward.id %>" class="form-label visually-hidden"><%= __('admin.locations.name') %></label>
+                        <input class="form-control mb-2" id="wardNameUpdate<%= ward.id %>" type="text" name="name" value="<%= ward.name %>">
+
+                        <label for="districtSelect<%= ward.id %>" class="form-label visually-hidden"><%= __('admin.locations.districts') %></label>
+                        <select class="form-select mb-2" name="ward" id="districtSelect<%= ward.id %>">
+                          <% districts.forEach(d => { %>
+                            <option value="<%= d.id %>" <% ward.regionId == d.id ? 'selected' : '' %>><%= d.name %></option>
+                          <% }) %>
+                        </select>
+
+                        <button type="submit" class="btn btn-info btn-sm" aria-label="<%= __('admin.locations.update') %>">
+                          <i class="bi bi-pencil-square"></i><span class="visually-hidden"><%= __('admin.locations.update') %></span>
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <a href="/admin/locations/ward/<%= ward.id %>/delete" class="btn btn-danger btn-sm" aria-label="<%= __('admin.locations.delete') %>">
+                        <i class="bi bi-trash"></i><span class="visually-hidden"><%= __('admin.locations.delete') %></span>
+                      </a>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="4" class="text-center"><%= __('admin.locations.noWards') %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <nav>
+          <ul class="pagination justify-content-center">
+            <%
+              const currentWards = pagination.wards.current;
+              const totalWards = pagination.wards.total;
+              const rangeWards = [];
+              if (totalWards <= 7) {
+                for (let i = 1; i <= totalWards; i++) rangeWards.push(i);
+              } else {
+                rangeWards.push(1);
+                if (currentWards > 4) rangeWards.push('...');
+                for (let i = Math.max(2, currentWards - 2); i <= Math.min(totalWards - 1, currentWards + 2); i++) {
+                  rangeWards.push(i);
+                }
+                if (currentWards < totalWards - 3) rangeWards.push('...');
+                rangeWards.push(totalWards);
+              }
+            %>
+            <% if (currentWards > 1) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=w&pageWards=<%= currentWards - 1 %>">&laquo;</a>
+              </li>
+            <% } %>
+            <% rangeWards.forEach(i => { %>
+              <% if (i === '...') { %>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+              <% } else { %>
+                <li class="page-item <%= i === currentWards ? 'active' : '' %>">
+                  <a class="page-link" href="?tab=w&pageWards=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+            <% }); %>
+            <% if (currentWards < totalWards) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=w&pageWards=<%= currentWards + 1 %>">&raquo;</a>
+              </li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="municipalities" role="tabpanel" aria-labelledby="municipalities-tab">
+      <div class="card p-3 mb-4">
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <form action="/admin/locations/municipalities/create" method="POST">
+                  <th colspan="3">
+                    <div class="input-group">
+                      <label for="municipalityName" class="form-label visually-hidden"><%= __('admin.locations.municipalityNamePlaceholder') %></label>
+                      <input type="text" class="form-control" id="municipalityName" name="name" placeholder="<%= __('admin.locations.municipalityNamePlaceholder') %>" required>
+                    </div>
+                    <label for="municipalityWard" class="form-label visually-hidden"><%= __('admin.locations.selectWard') %></label>
+                    <select class="form-select mt-2" name="ward" id="municipalityWard" required>
+                      <% wards.forEach(function(ward) { %>
+                        <option value="<%= ward.id %>"><%= ward.name %></option>
+                      <% }); %>
+                    </select>
+                    <button type="submit" class="btn btn-primary btn-sm mt-2"><%= __('admin.locations.addMunicipality') %></button>
+                  </th>
+                </form>
+              </tr>
+              <tr>
+                <th scope="col"><%= __('admin.locations.name') %></th>
+                <th scope="col"><%= __('admin.locations.createdAt') %></th>
+                <th scope="col"><%= __('admin.locations.actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% if (municipalities && municipalities.length > 0) { %>
+                <% municipalities.forEach(function(municipality) { %>
+                  <tr>
+                    <td><%= municipality.name %></td>
+                    <td><%= municipality.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <form action="/admin/locations/municipalities/<%= municipality.id %>/update">
+                        <label for="municipalityNameUpdate<%= municipality.id %>" class="form-label visually-hidden"><%= __('admin.locations.name') %></label>
+                        <input class="form-control mb-2" id="municipalityNameUpdate<%= municipality.id %>" type="text" name="name" value="<%= municipality.name %>">
+
+                        <label for="wardSelect<%= municipality.id %>" class="form-label visually-hidden"><%= __('admin.locations.wards') %></label>
+                        <select class="form-select mb-2" name="ward" id="wardSelect<%= municipality.id %>">
+                          <% if (Array.isArray(wards)) { %>
+                            <% wards.forEach(w => { %>
+                              <% if (w && typeof w.id === 'number' && typeof w.name === 'string' && w.name && w.name.length < 1000) { %>
+                                <option value="<%= w.id %>" <%= (municipality && municipality.regionId === w.id) ? 'selected' : '' %>><%= w.name %></option>
+                              <% } else { %>
+                                <option disabled>(Invalid ward)</option>
+                              <% } %>
+                            <% }) %>
+                          <% } else { %>
+                            <option disabled>(No wards available)</option>
+                          <% } %>
+                        </select>
+
+                        <button type="submit" class="btn btn-info btn-sm" aria-label="<%= __('admin.locations.update') %>">
+                          <i class="bi bi-pencil-square"></i><span class="visually-hidden"><%= __('admin.locations.update') %></span>
+                        </button>
+                      </form>
+                    </td>
+                    <td>
+                      <a href="/admin/locations/municipalities/<%= municipality.id %>/delete" class="btn btn-danger btn-sm" aria-label="<%= __('admin.locations.delete') %>">
+                        <i class="bi bi-trash"></i><span class="visually-hidden"><%= __('admin.locations.delete') %></span>
+                      </a>
+                    </td>
+                  </tr>
+                <% }) %>
+              <% } else { %>
+                <tr>
+                  <td colspan="3" class="text-center"><%= __('admin.locations.noMunicipalities') %></td>
+                </tr>
+              <% } %>
+            </tbody>
+          </table>
+        </div>
+        <nav>
+          <ul class="pagination justify-content-center">
+            <%
+              const currentMunicipalities = pagination.municipalities.current;
+              const totalMunicipalities = pagination.municipalities.total;
+              const rangeMunicipalities = [];
+              if (totalMunicipalities <= 7) {
+                for (let i = 1; i <= totalMunicipalities; i++) rangeMunicipalities.push(i);
+              } else {
+                rangeMunicipalities.push(1);
+                if (currentMunicipalities > 4) rangeMunicipalities.push('...');
+                for (let i = Math.max(2, currentMunicipalities - 2); i <= Math.min(totalMunicipalities - 1, currentMunicipalities + 2); i++) {
+                  rangeMunicipalities.push(i);
+                }
+                if (currentMunicipalities < totalMunicipalities - 3) rangeMunicipalities.push('...');
+                rangeMunicipalities.push(totalMunicipalities);
+              }
+            %>
+            <% if (currentMunicipalities > 1) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=m&pageMunicipalities=<%= currentMunicipalities - 1 %>">&laquo;</a>
+              </li>
+            <% } %>
+            <% rangeMunicipalities.forEach(i => { %>
+              <% if (i === '...') { %>
+                <li class="page-item disabled"><span class="page-link">...</span></li>
+              <% } else { %>
+                <li class="page-item <%= i === currentMunicipalities ? 'active' : '' %>">
+                  <a class="page-link" href="?tab=m&pageMunicipalities=<%= i %>"><%= i %></a>
+                </li>
+              <% } %>
+            <% }); %>
+            <% if (currentMunicipalities < totalMunicipalities) { %>
+              <li class="page-item">
+                <a class="page-link" href="?tab=m&pageMunicipalities=<%= currentMunicipalities + 1 %>">&raquo;</a>
+              </li>
+            <% } %>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<%- include('../components/footer') %>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const tab = urlParams.get('tab');
+
+    let tabId = 'regions'; // Default tab
+
+    if (tab === 'w') tabId = 'wards';
+    else if (tab === 'd') tabId = 'districts';
+    else if (tab === 'm') tabId = 'municipalities';
+
+    const tabTrigger = document.querySelector(`#${tabId}-tab`);
+    if (tabTrigger) {
+      new bootstrap.Tab(tabTrigger).show();
+    }
+  });
+</script>

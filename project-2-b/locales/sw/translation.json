@@ -1,0 +1,59 @@
+{
+    "common": {
+      "navbar": {
+        "home": "Mwanzo",
+        "facilities": "Vituo vya Afya",
+        "about": "Kuhusu",
+        "login": "Ingia",
+        "logout": "Toka",
+        "language": "Lugha"
+      },
+      "footer": {
+        "copyright": "MediTanzania © 2025 - Kuboresha huduma za afya kupitia uwazi"
+      },
+      "alerts": {
+        "success": "Imefanikiwa!",
+        "error": "Hitilafu:"
+      }
+    },
+    "home": {
+      "welcomeTitle": "Karibu MediTanzania",
+      "welcomeSubtitle": "Kukuza uwazi na ubora katika vituo vya afya Tanzania nzima",
+      "loginButton": "Ingia",
+      "viewFacilitiesButton": "Angalia Vituo vya Afya",
+      "findFacilities": {
+        "title": "Tafuta Vituo vya Afya",
+        "description": "Tafuta vituo vya afya katika eneo lako na angalia tathmini ya ubora na huduma zao.",
+        "button": "Tafuta Vituo"
+      },
+      "aboutPlatform": {
+        "title": "Kuhusu Jukwaa Letu",
+        "description": "Jifunze jinsi MediTanzania inavyofanya kazi kuboresha ubora wa huduma za afya kupitia uwazi na uwajibikaji.",
+        "button": "Jifunze Zaidi"
+      }
+    },
+    "login": {
+      "pageTitle": "Ingia",
+      "formTitle": "Ingia kwenye MediTanzania",
+      "emailLabel": "Barua Pepe",
+      "emailPlaceholder": "jina@mfano.com",
+      "passwordLabel": "Nywila",
+      "passwordPlaceholder": "••••••••",
+      "rememberMe": "Nikumbuke",
+      "loginButton": "Ingia",
+      "forgotPassword": "Umesahau Nywila?",
+      "createAccount": "Fungua Akaunti"
+    },
+    "facilities": {
+      "pageTitle": "Vituo vya Afya",
+      "heading": "Vituo vya Afya",
+      "viewDetails": "Angalia Maelezo",
+      "noFacilities": "Hakuna vituo vilivyopatikana.",
+      "table": {
+        "name": "Jina",
+        "type": "Aina",
+        "municipality": "Manispaa",
+        "actions": "Vitendo"
+      }
+    }
+  }

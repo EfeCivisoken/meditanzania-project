@@ -1,0 +1,198 @@
+<%- include('../components/header', { title: __('admin.user.title') }) %>
+
+<div class="container my-4">
+  <a href="/admin/users" class="btn btn-secondary mb-3"><%= __('admin.user.backToUserList') %></a>
+  <% if (user) { %>
+    <h1 class="mb-4"><%= __('admin.user.userInformation') %></h1>
+    <div class="table-responsive mb-5">
+      <table class="table table-bordered table-hover">
+        <thead class="table-light">
+          <tr>
+            <th><%= __('admin.user.name') %></th>
+            <th><%= __('admin.user.email') %></th>
+            <th><%= __('admin.user.password') %></th>
+            <th><%= __('admin.user.type') %></th>
+            <% if (user.type === 'facility-staff') { %>
+              <th><%= __('admin.user.facility') %></th>
+            <% } %>
+            <% if (jurisdiction != null) { %>
+              <th><%= __('admin.user.jurisdiction') %></th>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td>(hashed)</td>
+            <td><%= user.type %></td>
+            <% if (user.type === 'facility-staff') { %>
+              <td>
+                <% if (user.facility) { %>
+                  <%= user.facility.name %>
+                <% } else { %>
+                  <%= __('common.none') %>
+                <% } %>
+              </td>
+            <% } %>
+            <% if (jurisdiction != null) { %>
+              <td>
+                <% if (jurisdiction.regionId) { %>
+                  Region of <%= regions.find(region => region.id === jurisdiction.regionId)?.name || 'Unknown' %>
+                <% } else if (jurisdiction.districtId) { %>
+                  District of <%= districts.find(district => district.id === jurisdiction.districtId)?.name || 'Unknown' %>
+                <% } else if (jurisdiction.wardId) { %>
+                  Ward of <%= wards.find(ward => ward.id === jurisdiction.wardId)?.name || 'Unknown' %>
+                <% } else if (jurisdiction.municipalityId) { %>
+                  Municipality of <%= municipalities.find(municipality => municipality.id === jurisdiction.municipalityId)?.name || 'Unknown' %>
+                <% } else { %>
+                  <%= __('common.none') %>
+                <% } %>
+              </td>
+            <% } %>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 class="mb-3"><%= __('admin.user.updateUser') %></h2>
+    <% if (userIsCurrentUser) { %>
+          <form action="/admin/user/<%= user.id %>/update" method="post">
+            <div class="mb-3">
+              <label for="name" class="form-label"><%= __('admin.user.name') %></label>
+              <input type="text" name="name" id="name" class="form-control" value="<%= user.name %>" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"><%= __('admin.user.email') %></label>
+              <input type="text" name="email" id="email" class="form-control" value="<%= user.email %>" />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label"><%= __('admin.user.password') %></label>
+              <input type="password" name="password" id="password" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="type" class="form-label"><%= __('admin.user.type') %></label>
+              <select name="type" id="type" class="form-select" disabled>
+                <option value="admin" <% if (user.type === 'admin') { %> selected <% } %>>Admin</option>
+                <option value="government-official" <% if (user.type === 'government-official') { %> selected <% } %>>Government Official</option>
+                <option value="public-official" <% if (user.type === 'public-official') { %> selected <% } %>>Public Official</option>
+                <option value="facility-staff" <% if (user.type === 'facility-staff') { %> selected <% } %>>Facility Staff</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary"><%= __('admin.user.updateUserButton') %></button>
+          </form>
+    <% } else { %>
+          <form action="/admin/users/<%= user.id %>/update" method="post">
+            <div class="mb-3">
+              <label for="name" class="form-label"><%= __('admin.user.name') %></label>
+              <input type="text" name="name" id="name" class="form-control" value="<%= user.name %>" />
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label"><%= __('admin.user.email') %></label>
+              <input type="text" name="email" id="email" class="form-control" value="<%= user.email %>" />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label"><%= __('admin.user.password') %></label>
+              <input type="password" name="password" id="password" class="form-control" />
+            </div>
+            <div class="mb-3">
+              <label for="type" class="form-label"><%= __('admin.user.type') %></label>
+              <select name="type" id="type" class="form-select">
+                <option value="admin" <% if (user.type === 'admin') { %> selected <% } %>>Admin</option>
+                <option value="government-official" <% if (user.type === 'government-official') { %> selected <% } %>>Government Official</option>
+                <option value="public-official" <% if (user.type === 'public-official') { %> selected <% } %>>Public Official</option>
+                <option value="facility-staff" <% if (user.type === 'facility-staff') { %> selected <% } %>>Facility Staff</option>
+              </select>
+            </div>
+            <div id="facility-dropdown" class="mb-3" style="display: none;">
+              <label for="facility" class="form-label">Facility</label>
+              <select name="facility" id="facility" class="form-select">
+                <% facilities.forEach((facility) => { %>
+                  <option value="<%= facility.id %>" <% if (facility.id === user.worksAt) { %> selected <% } %>><%= facility.name %></option>
+                <% }); %>
+              </select>
+            </div>
+            <script>
+              const typeDropdown = document.getElementById('type');
+              const facilityDropdown = document.getElementById('facility-dropdown');
+
+              typeDropdown.addEventListener('change', function () {
+                if (this.value === 'facility-staff') {
+                  facilityDropdown.style.display = 'block';
+                } else {
+                  facilityDropdown.style.display = 'none';
+                }
+              });
+              
+              if (typeDropdown.value === 'facility-staff') {
+                facilityDropdown.style.display = 'block';
+              }
+            </script>
+            <button type="submit" class="btn btn-primary me-3"><%= __('admin.user.updateUserButton') %></button>
+            <a href="/admin/users/<%= user.id %>/delete" class="btn btn-danger align-middle"><%= __('admin.user.deleteUserButton') %></a>
+          </form>
+        </div>
+      </div>
+    <% } %>
+
+    <% if (user.type == 'government-official' || user.type == 'public-official') { %>
+      <h2 class="mb-3"><%= __('admin.user.setJurisdiction') %></h2>
+      <div class="row g-4">
+              <form method="post" action="/admin/users/<%= user.id %>/jurisdiction">
+                <div class="mb-3">
+                  <label for="region" class="form-label"><%= __('admin.user.setRegion') %></label>
+                  <select name="region" id="region" class="form-select">
+                    <% regions.forEach((region) => { %>
+                      <option value="<%= region.id %>" <% if (jurisdiction && jurisdiction.regionId == region.id) { %>selected<% } %>><%= region.name %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><%= __('admin.user.setJurisdictionButton') %></button>
+              </form>
+
+              <form method="post" action="/admin/users/<%= user.id %>/jurisdiction">
+                <div class="mb-3">
+                  <label for="district" class="form-label"><%= __('admin.user.setDistrict') %></label>
+                  <select name="district" id="district" class="form-select">
+                    <% districts.forEach((district) => { %>
+                      <option value="<%= district.id %>" <% if (jurisdiction && jurisdiction.districtId == district.id) { %>selected<% } %>><%= district.name %></option>
+                    <% }); %>
+                  </select>
+                <button type="submit" class="btn btn-primary w-100"><%= __('admin.user.setJurisdictionButton') %></button>
+              </form>
+        </div>
+              <form method="post" action="/admin/users/<%= user.id %>/jurisdiction">
+                <div class="mb-3">
+                  <label for="ward" class="form-label"><%= __('admin.user.setWard') %></label>
+                  <select name="ward" id="ward" class="form-select">
+                    <% wards.forEach((ward) => { %>
+                      <option value="<%= ward.id %>" <% if (jurisdiction && jurisdiction.wardId == ward.id) { %>selected<% } %>><%= ward.name %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><%= __('admin.user.setJurisdictionButton') %></button>
+              </form>
+
+              <form method="post" action="/admin/users/<%= user.id %>/jurisdiction">
+                <div class="mb-3">
+                  <label for="municipality" class="form-label"><%= __('admin.user.setMunicipality') %></label>
+                  <select name="municipality" id="municipality" class="form-select">
+                    <% municipalities.forEach((municipality) => { %>
+                      <option value="<%= municipality.id %>" <% if (jurisdiction && jurisdiction.municipalityId == municipality.id) { %>selected<% } %>><%= municipality.name %></option>
+                    <% }); %>
+                  </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100"><%= __('admin.user.setJurisdictionButton') %></button>
+              </form>
+            </div>
+    <% } %>
+  <% } else { %>
+    <div class="alert alert-danger" role="alert">
+      <h2><%= __('admin.user.errorInvalidUserId') %></h2>
+      <p><%= __('admin.user.errorUserNotFound') %></p>
+    </div>
+  <% } %>
+</div>
+<%- include('../components/footer') %>
+</body>
+</html>

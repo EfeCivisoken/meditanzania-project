@@ -1,0 +1,42 @@
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="z-index: 1030;">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="/">MediTanzania</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/"><%=__('common.navbar.home')%></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/facilities"><%=__('common.navbar.facilities')%></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/topnlown/setup"><%=__('common.navbar.topn')%></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about"><%=__('common.navbar.about')%></a>
+        </li>
+      </ul>
+      <div class="navbar-nav">
+        <!-- Language dropdown -->
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <%=__('common.navbar.language')%>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+            <li><a class="dropdown-item" href="/change-language/en">English</a></li>
+            <li><a class="dropdown-item" href="/change-language/sw">Kiswahili</a></li>
+          </ul>
+        </div>
+        <% if(userType) { %>
+          <a class="nav-link" href="/auth/logout"><%=__('common.navbar.logout')%></a>
+        <% } else { %>
+          <a class="nav-link" href="/auth/login"><%=__('common.navbar.login')%></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

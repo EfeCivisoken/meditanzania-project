@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= facility.name %> - Citizen View</title>
+</head>
+<body>
+  <h1>Facility: <%= facility.name %></h1>
+  <p>District: <%= facility.district %></p>
+  
+  <h2>Summary:</h2>
+  <p>Average Rating: <%= summary.averageRating %></p>
+  <p>Total Reviews: <%= summary.totalReviews %></p>
+
+  <!-- ADDED: Updates -->
+  <h2>Updates</h2>
+  <% if (facility.posts && facility.posts.length > 0) { %>
+    <ul>
+      <% facility.posts.forEach(function(post) { %>
+        <li>
+          <strong><%= post.user.name %>:</strong> <%= post.content %><br>
+          <small><%= new Date(post.createdAt).toLocaleString() %></small>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No updates available.</p>
+  <% } %>
+
+  <!-- Optionally, list survey responses summary -->
+  <% if (facility.SurveyResponses && facility.SurveyResponses.length > 0) { %>
+    <h3>Survey Responses:</h3>
+    <ul>
+      <% facility.SurveyResponses.forEach(function(response) { %>
+        <li>
+          Overall Rating: <%= response.overallRating %>
+        </li>
+      <% }); %>
+    </ul>
+  <% } else { %>
+    <p>No survey responses available.</p>
+  <% } %>
+</body>
+</html>

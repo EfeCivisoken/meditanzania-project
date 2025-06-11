@@ -1,0 +1,122 @@
+<%- include('../components/header', { title: __('admin.facility.title') }) %>
+
+<div class="container my-4">
+  <a href="/admin/facilities" class="btn btn-secondary mb-4">&larr; <%= __('admin.facility.back') %></a>
+  <% if (facility) { %>
+  <h1 class="mb-4"><%= __('admin.facility.info') %></h1>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><%= __('admin.facility.score') %></th>
+        <th><%= __('admin.facility.name') %></th>
+        <th><%= __('admin.facility.commonName') %></th>
+        <th><%= __('admin.facility.type') %></th>
+        <th><%= __('admin.facility.phoneNumber') %></th>
+        <th><%= __('admin.facility.status') %></th>
+        <th><%= __('admin.facility.address') %></th>
+        <th><%= __('admin.facility.email') %></th>
+        <th><%= __('admin.facility.website') %></th>
+        <th><%= __('admin.facility.longitude') %></th>
+        <th><%= __('admin.facility.latitude') %></th>
+        <th><%= __('admin.facility.municipality') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= (scores && scores.length > 0 && scores[scores.length - 1].score) || 0 %></td>
+        <td><%= facility.name %></td>
+        <td><%= facility.commonName %></td>
+        <td><%= facility.type %></td>
+        <td><%= facility.phoneNumber %></td>
+        <td><%= facility.status %></td>
+        <td><%= facility.address %></td>
+        <td><%= facility.email %></td>
+        <td><%= facility.website %></td>
+        <td><%= facility.longitude %></td>
+        <td><%= facility.latitude %></td>
+        <td><%= facility.location.name %></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <%- include('../components/facility-score-graph'); %>
+
+  <h2 class="mt-5"><%= __('admin.facility.update') %></h2>
+  <form action="/admin/facilities/<%= facility.id %>/update" method="post">
+    <div class="mb-3">
+      <label for="name" class="form-label"><%= __('admin.facility.name') %></label>
+      <input type="text" class="form-control" name="name" id="name" value="<%= facility.name %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="commonName" class="form-label"><%= __('admin.facility.commonName') %></label>
+      <input type="text" class="form-control" name="commonName" id="commonName" value="<%= facility.commonName %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="type" class="form-label"><%= __('admin.facility.type') %></label>
+      <input type="text" class="form-control" name="type" id="type" value="<%= facility.type %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="phone" class="form-label"><%= __('admin.facility.phoneNumber') %></label>
+      <input type="text" class="form-control" name="phone" id="phone" value="<%= facility.phoneNumber %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="address" class="form-label"><%= __('admin.facility.address') %></label>
+      <input type="text" class="form-control" name="address" id="address" value="<%= facility.address %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="email" class="form-label"><%= __('admin.facility.email') %></label>
+      <input type="text" class="form-control" name="email" id="email" value="<%= facility.email %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="website" class="form-label"><%= __('admin.facility.website') %></label>
+      <input type="text" class="form-control" name="website" id="website" value="<%= facility.website %>" />
+    </div>
+
+    <div class="mb-3">
+      <label for="longitude" class="form-label"><%= __('admin.facility.longitude') %></label>
+      <input type="text" class="form-control" name="longitude" id="longitude" value="<%= facility.longitude %>" />
+    </div>
+
+    <div class="mb-3">
+      <label for="latitude" class="form-label"><%= __('admin.facility.latitude') %></label>
+      <input type="text" class="form-control" name="latitude" id="latitude" value="<%= facility.latitude %>" />
+    </div>
+    
+    <div class="mb-3">
+      <label for="location" class="form-label"><%= __('admin.facility.municipality') %></label>
+      <select name="location" id="location" class="form-select">
+        <% municipalities.forEach((municipality) => { %>
+          <option value="<%= municipality.id %>" <% if (municipality.id == facility.location.id) { %> selected <% } %> ><%= municipality.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary mt-3"><%= __('admin.facility.updateButton') %></button>
+  </form>
+
+  <% if (facility.status.toLowerCase() == 'active') { %>
+    <div class="mt-4">
+      <a href="/admin/facilities/<%= facility.id %>/deactivate" class="link-secondary">(<%= __('admin.facility.deactivateLink') %>)</a>
+    </div>
+  <% } else { %>
+    <div class="mt-4">
+      <a href="/admin/facilities/<%= facility.id %>/activate" class="link-secondary">(<%= __('admin.facility.activateLink') %>)</a>
+    </div>
+  <% } %>
+  <% } else { %>
+    <div class="alert alert-danger">
+      <h2><%= __('admin.facility.errorTitle') %></h2>
+      <p><%= __('admin.facility.errorMessage') %></p>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../components/footer') %>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<%- include('../components/header', { title: __('admin.users.title') }) %>
+  <div class="container my-4">
+    <div class="mb-3">
+      <a href="/admin" class="btn btn-secondary">&larr; <%= __('admin.users.back') %></a>
+    </div>
+    <h1 class="text-center mb-4"><%= __('admin.users.title') %></h1>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><%= __('admin.users.name') %></th>
+          <th><%= __('admin.users.email') %></th>
+          <th><%= __('admin.users.type') %></th>
+          <th><%= __('admin.users.details') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% users.forEach((user) => { %>
+          <tr>
+            <td><%= user.name %></td>
+            <td><%= user.email %></td>
+            <td><%= user.type %></td>
+            <td><a href="/admin/users/<%= user.id %>"><%= __('admin.users.details') %></a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+
+    <nav aria-label="User pagination">
+      <ul class="pagination justify-content-center">
+        <% if (page > 1) { %>
+          <li class="page-item">
+            <a class="page-link" href="?page=<%= page - 1 %>">&laquo;</a>
+          </li>
+        <% } else { %>
+          <li class="page-item disabled">
+            <span class="page-link">&laquo;</span>
+          </li>
+        <% } %>
+
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= i === page ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+          </li>
+        <% } %>
+
+        <% if (page < totalPages) { %>
+          <li class="page-item">
+            <a class="page-link" href="?page=<%= page + 1 %>">&raquo;</a>
+          </li>
+        <% } else { %>
+          <li class="page-item disabled">
+            <span class="page-link">&raquo;</span>
+          </li>
+        <% } %>
+      </ul>
+    </nav>
+
+    <br />
+
+    <h1><%= __('admin.users.createUser') %></h1>
+    <form action="/admin/users/create" method="post" class="mt-4">
+      <div class="mb-3">
+        <label for="name" class="form-label"><%= __('admin.users.name') %></label>
+        <input type="text" name="name" id="name" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label"><%= __('admin.users.email') %></label>
+        <input type="text" name="email" id="email" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label"><%= __('admin.users.password') %></label>
+        <input type="password" name="password" id="password" class="form-control" />
+      </div>
+      <div class="mb-3">
+        <label for="type" class="form-label"><%= __('admin.users.type') %></label>
+        <select name="type" id="type" class="form-select">
+          <option value="admin"><%= __('admin.users.typeAdmin') %></option>
+          <option value="government-official"><%= __('admin.users.typeGovernmentOfficial') %></option>
+          <option value="public-official"><%= __('admin.users.typePublicOfficial') %></option>
+          <option value="facility-staff"><%= __('admin.users.typeFacilityStaff') %></option>
+        </select>
+      </div>
+      <div id="facility-dropdown" style="display: none;">
+        <label for="facility" class="form-label"><%= __('admin.users.facility') %></label>
+        <select name="worksAt" id="facility" class="form-select">
+          <% facilities.forEach((facility) => { %>
+            <option value="<%= facility.id %>"><%= facility.name %></option>
+          <% }); %>
+        </select>
+      </div>
+      <script>
+        const typeDropdown = document.getElementById('type');
+        const facilityDropdown = document.getElementById('facility-dropdown');
+
+        typeDropdown.addEventListener('change', function () {
+          if (this.value === 'facility-staff') {
+            facilityDropdown.style.display = 'block';
+          } else {
+            facilityDropdown.style.display = 'none';
+          }
+        });
+
+        if (typeDropdown.value === 'facility-staff') {
+          facilityDropdown.style.display = 'block';
+        }
+      </script>
+      <button type="submit" class="btn btn-primary"><%= __('admin.users.createUserButton') %></button>
+    </form>
+  </div>
+  <%- include('../components/footer') %>
+</body>
+</html>

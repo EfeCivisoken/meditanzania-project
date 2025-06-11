@@ -1,0 +1,103 @@
+<%- include('../components/header', { title: __('admin.surveys.title') }) %>
+<div class="container my-4">
+  <a href="/admin" class="btn btn-secondary mb-3"><%= __('admin.surveys.back') %></a>
+  <h2><%= __('admin.surveys.title') %></h2>
+  <% if(surveys && surveys.length > 0) { %>
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><%= __('admin.surveys.name') %></th>
+          <th><%= __('admin.surveys.details') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% surveys.forEach(survey => { %>
+          <tr>
+            <td><%= survey.name %></td>
+            <td><a href="/admin/surveys/<%= survey.id %>"><%= __('admin.surveys.details') %></a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <p><%= __('admin.surveys.none') %></p>
+  <% } %>
+
+  <% if (totalPages && totalPages > 1) { %>
+    <nav aria-label="Survey pagination">
+      <ul class="pagination justify-content-center mt-4">
+        <li class="page-item <%= currentPage === 1 ? 'disabled' : '' %>">
+          <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+        </li>
+        <% for (let i = 1; i <= totalPages; i++) { %>
+          <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+            <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+          </li>
+        <% } %>
+        <li class="page-item <%= currentPage === totalPages ? 'disabled' : '' %>">
+          <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+        </li>
+      </ul>
+    </nav>
+  <% } %>
+
+  <h2><%= __('admin.surveys.createTitle') %></h2>
+  <p class="alert alert-info"><%= __('admin.surveys.csvLayoutTitle') %></p>
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr>
+        <th><%= __('admin.surveys.column.question') %></th>
+        <th><%= __('admin.surveys.column.type') %></th>
+        <th><%= __('admin.surveys.column.weight') %></th>
+        <th><%= __('admin.surveys.column.transformation') %></th>
+        <th><%= __('admin.surveys.column.category') %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= __('admin.surveys.exampleQuestion1') %></td>
+        <td>integer</td>
+        <td>3</td>
+        <td>square</td>
+        <td><i><%= __('admin.surveys.defaultCategoryNote') %></i></td>
+      </tr>
+      <tr>
+        <td><%= __('admin.surveys.exampleQuestion2') %></td>
+        <td>text</td>
+        <td>2</td>
+        <td>none</td>
+        <td>Mistreatment</td>
+      </tr>
+    </tbody>
+  </table>
+  <p><%= __('admin.surveys.columnBreakdownTitle') %></p>
+  <ul>
+    <li><%= __('admin.surveys.columnDescriptions.question') %></li>
+    <li><%= __('admin.surveys.columnDescriptions.type') %></li>
+    <li><%= __('admin.surveys.columnDescriptions.weight') %></li>
+    <li><%= __('admin.surveys.columnDescriptions.transformation') %></li>
+  </ul>
+  <ul>
+    <li><%= __('admin.surveys.transformation.square') %></li>
+    <li><%= __('admin.surveys.transformation.sqrt') %></li>
+    <li><%= __('admin.surveys.transformation.inverse') %></li>
+    <li><%= __('admin.surveys.transformation.none') %></li>
+  </ul>
+  <p><%= __('admin.surveys.uploadPrompt') %></p>
+  <form action="/admin/surveys/create" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label for="name" class="form-label"><%= __('admin.surveys.form.name') %></label>
+      <input type="text" name="name" id="name" class="form-control">
+    </div>
+    <div class="mb-3">
+      <label for="csv" class="form-label"><%= __('admin.surveys.form.csv') %></label>
+      <input type="file" name="csv" id="csv" class="form-control">
+    </div>
+    <button type="submit" class="btn btn-primary"><%= __('admin.surveys.form.create') %></button>
+  </form>
+</div>
+
+<%- include('../components/footer') %>
+
+</body>
+</html>

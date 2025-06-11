@@ -1,0 +1,149 @@
+<%- include('../components/header', { title: __('admin.facilities.title') }) %>
+  <a href="/admin" class="btn btn-secondary mb-3">&larr; <%= __('admin.facilities.back') %></a>
+  
+  <h1 class="text-center mb-4"><%= __('admin.facilities.title') %></h1>
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th><%= __('admin.facilities.name') %></th>
+          <th><%= __('admin.facilities.score') %></th>
+          <th><%= __('admin.facilities.type') %></th>
+          <th><%= __('admin.facilities.municipality') %></th>
+          <th><%= __('admin.facilities.details') %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% facilities.forEach((facility) => { %>
+          <tr>
+              <td><%= facility.name %></td>
+              <td>
+                <%= scoresDict.get(facility.id)?.[scoresDict.get(facility.id)?.length - 1]?.score || 'N/A' %>
+              </td>
+            <td><%= facility.type %></td>
+            <td><%= facility.location.name %></td>
+            <td><a href="/admin/facilities/<%= facility.id %>">details</a></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+  </div>
+
+  <nav aria-label="Facility pagination">
+    <ul class="pagination justify-content-center mt-4">
+
+      <% if (currentPage > 1) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo;</a>
+        </li>
+      <% } else { %>
+        <li class="page-item disabled">
+          <span class="page-link">&laquo;</span>
+        </li>
+      <% } %>
+
+      <% const delta = 2; %>
+      <% const range = []; %>
+      <% for (let i = Math.max(2, currentPage - delta); i <= Math.min(totalPages - 1, currentPage + delta); i++) {
+           range.push(i);
+         } %>
+
+      <% if (totalPages >= 1) { %>
+        <li class="page-item <%= currentPage === 1 ? 'active' : '' %>">
+          <a class="page-link" href="?page=1">1</a>
+        </li>
+      <% } %>
+
+      <% if (currentPage - delta > 2) { %>
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      <% } %>
+
+      <% range.forEach(page => { %>
+        <li class="page-item <%= page === currentPage ? 'active' : '' %>">
+          <a class="page-link" href="?page=<%= page %>"><%= page %></a>
+        </li>
+      <% }); %>
+
+      <% if (currentPage + delta < totalPages - 1) { %>
+        <li class="page-item disabled"><span class="page-link">…</span></li>
+      <% } %>
+
+      <% if (totalPages > 1) { %>
+        <li class="page-item <%= currentPage === totalPages ? 'active' : '' %>">
+          <a class="page-link" href="?page=<%= totalPages %>"><%= totalPages %></a>
+        </li>
+      <% } %>
+
+      <% if (currentPage < totalPages) { %>
+        <li class="page-item">
+          <a class="page-link" href="?page=<%= currentPage + 1 %>">&raquo;</a>
+        </li>
+      <% } else { %>
+        <li class="page-item disabled">
+          <span class="page-link">&raquo;</span>
+        </li>
+      <% } %>
+
+    </ul>
+  </nav>
+
+  <a href="/admin/updatefacilityscores" class="btn btn-outline-primary mt-3"><%= __('admin.facilities.updateScores') %></a>
+
+  <br />
+
+  <h2 class="mt-5 mb-3"><%= __('admin.facilities.createFacility') %></h2>
+  <form action="/admin/facilities/create" method="post" class="row g-3">
+    <div class="col-md-6">
+      <label for="name" class="form-label"><%= __('admin.facilities.name') %></label>
+      <input type="text" name="name" id="name" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="commonName" class="form-label"><%= __('admin.facilities.commonName') %></label>
+      <input type="text" name="commonName" id="commonName" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="type" class="form-label"><%= __('admin.facilities.type') %></label>
+      <input type="text" name="type" id="type" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="phone" class="form-label"><%= __('admin.facilities.phone') %></label>
+      <input type="text" name="phone" id="phone" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="address" class="form-label"><%= __('admin.facilities.address') %></label>
+      <input type="text" name="address" id="address" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="email" class="form-label"><%= __('admin.facilities.email') %></label>
+      <input type="text" name="email" id="email" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="website" class="form-label"><%= __('admin.facilities.website') %></label>
+      <input type="text" name="website" id="website" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="longitude" class="form-label"><%= __('admin.facilities.longitude') %></label>
+      <input type="text" name="longitude" id="longitude" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="latitude" class="form-label"><%= __('admin.facilities.latitude') %></label>
+      <input type="text" name="latitude" id="latitude" class="form-control" />
+    </div>
+    <div class="col-md-6">
+      <label for="location" class="form-label"><%= __('admin.facilities.location') %></label>
+      <select name="location" id="location" class="form-select">
+        <option value="SELECT A MUNICIPALITY" hidden selected disabled><%= __('admin.facilities.selectMunicipality') %></option>
+        <% municipalities.forEach((municipality) => { %>
+          <option value="<%= municipality.id %>"><%= municipality.name %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary"><%= __('admin.facilities.createFacilityButton') %></button>
+    </div>
+  </form>
+
+  <%- include('../components/footer') %>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<%- include('components/header', { title: __('updatePass.title') }) %>
+  <div class="container">
+    <div class="content-wrapper">
+      <div class="container login-container">
+        <div class="login-card">
+          <h2 class="form-title"><%=__('updatePass.title')%></h2>
+          
+          <form action="/user/updatepass" method="POST">
+            <div class="mb-3">
+              <label for="old" class="form-label"><%=__('updatePass.currentPw')%></label>
+              <input type="password" class="form-control" name="old" id="old" required>
+            </div>
+            <div class="mb-3">
+              <label for="new" class="form-label"><%=__('updatePass.newPw')%></label>
+              <input type="password" class="form-control" name="new" id="new" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-login"><%=__('updatePass.btn')%></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<%- include('components/footer') %>
